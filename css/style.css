@@ -1,0 +1,1347 @@
+/* =========================================================
+   KTN SHOES
+   Feuille de style principale
+   ========================================================= */
+
+
+/* =========================================================
+   1. VARIABLES
+   ========================================================= */
+
+:root {
+
+    --bleu: #3157d5;
+    --bleu-fonce: #2445b5;
+    --bleu-tres-clair: #eef2ff;
+
+    --noir: #111111;
+    --gris-fonce: #555555;
+    --gris: #777777;
+    --gris-clair: #f5f6f8;
+    --bordure: #e8e8e8;
+
+    --blanc: #ffffff;
+
+    --ombre-legere:
+        0 10px 30px rgba(0, 0, 0, 0.06);
+
+    --ombre-hover:
+        0 18px 40px rgba(0, 0, 0, 0.10);
+
+    --transition:
+        0.3s ease;
+
+    --rayon:
+        16px;
+}
+
+
+/* =========================================================
+   2. RESET
+   ========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+
+    font-family:
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    color: var(--noir);
+
+    background-color: var(--blanc);
+
+    line-height: 1.6;
+}
+
+
+img {
+
+    max-width: 100%;
+
+    display: block;
+}
+
+
+a {
+    color: inherit;
+}
+
+
+button {
+    font: inherit;
+}
+
+
+/* =========================================================
+   3. CONTENEUR
+   ========================================================= */
+
+.conteneur {
+
+    width: min(1180px, 92%);
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   4. HEADER
+   ========================================================= */
+
+.header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    background-color:
+        rgba(255, 255, 255, 0.95);
+
+    backdrop-filter:
+        blur(12px);
+
+    border-bottom:
+        1px solid var(--bordure);
+}
+
+
+.header-contenu {
+
+    min-height: 78px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 30px;
+}
+
+
+/* LOGO */
+
+.logo {
+
+    text-decoration: none;
+
+    font-size: 1.35rem;
+
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+
+    white-space: nowrap;
+}
+
+
+.logo span {
+
+    color: var(--bleu);
+
+    margin-left: 2px;
+}
+
+
+/* NAVIGATION */
+
+.navigation ul {
+
+    list-style: none;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 32px;
+}
+
+
+.navigation a {
+
+    position: relative;
+
+    text-decoration: none;
+
+    color: #333333;
+
+    font-size: 0.92rem;
+
+    font-weight: 500;
+
+    transition:
+        color var(--transition);
+}
+
+
+.navigation a::after {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: -8px;
+
+    width: 0;
+
+    height: 2px;
+
+    background-color: var(--bleu);
+
+    transition:
+        width var(--transition);
+}
+
+
+.navigation a:hover,
+.navigation a.actif {
+
+    color: var(--bleu);
+}
+
+
+.navigation a:hover::after,
+.navigation a.actif::after {
+
+    width: 100%;
+}
+
+
+/* PANIER */
+
+.lien-panier {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 42px;
+
+    height: 42px;
+
+    text-decoration: none;
+
+    border-radius: 50%;
+
+    transition:
+        background-color var(--transition);
+}
+
+
+.lien-panier:hover {
+
+    background-color:
+        var(--gris-clair);
+}
+
+
+.pastille-panier {
+
+    position: absolute;
+
+    top: 2px;
+
+    right: 1px;
+
+    width: 17px;
+
+    height: 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background-color: var(--bleu);
+
+    color: var(--blanc);
+
+    font-size: 0.65rem;
+
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   5. BOUTONS
+   ========================================================= */
+
+.bouton {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 46px;
+
+    padding:
+        0 24px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 0.9rem;
+
+    font-weight: 600;
+
+    transition:
+        all var(--transition);
+}
+
+
+.bouton-primaire {
+
+    color: var(--blanc);
+
+    background-color:
+        var(--bleu);
+}
+
+
+.bouton-primaire:hover {
+
+    background-color:
+        var(--bleu-fonce);
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(49, 87, 213, 0.25);
+}
+
+
+.bouton-secondaire {
+
+    color: var(--noir);
+
+    border:
+        1px solid var(--bordure);
+
+    background-color:
+        var(--blanc);
+}
+
+
+.bouton-secondaire:hover {
+
+    border-color:
+        var(--noir);
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   6. HERO
+   ========================================================= */
+
+.hero {
+
+    background:
+        linear-gradient(
+            135deg,
+            #f7f8fc 0%,
+            #ffffff 100%
+        );
+
+    padding:
+        90px 0 100px;
+
+    overflow: hidden;
+}
+
+
+.hero-contenu {
+
+    min-height:
+        520px;
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    align-items: center;
+
+    gap: 70px;
+}
+
+
+/* TEXTE HERO */
+
+.hero-texte {
+
+    max-width:
+        570px;
+}
+
+
+.sur-titre {
+
+    display: block;
+
+    margin-bottom: 14px;
+
+    color: var(--bleu);
+
+    font-size: 0.75rem;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 2px;
+}
+
+
+.hero h1 {
+
+    font-size:
+        clamp(3rem, 5vw, 5rem);
+
+    line-height:
+        0.98;
+
+    letter-spacing:
+        -3px;
+
+    margin-bottom:
+        28px;
+
+    font-weight:
+        800;
+}
+
+
+.hero h1 span {
+
+    display: block;
+
+    color:
+        var(--bleu);
+}
+
+
+.hero-texte p {
+
+    max-width:
+        500px;
+
+    margin-bottom:
+        32px;
+
+    color:
+        var(--gris-fonce);
+
+    font-size:
+        1.05rem;
+}
+
+
+.hero-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+}
+
+
+/* IMAGE HERO */
+
+.hero-image {
+
+    position: relative;
+
+    min-height:
+        480px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+}
+
+
+.hero-image-fond {
+
+    position: absolute;
+
+    width: 410px;
+
+    height: 410px;
+
+    border-radius: 50%;
+
+    background:
+        var(--bleu-tres-clair);
+}
+
+
+.hero-image img {
+
+    position: relative;
+
+    z-index: 1;
+
+    width:
+        min(100%, 500px);
+
+    max-height:
+        450px;
+
+    object-fit:
+        contain;
+
+    filter:
+        drop-shadow(
+            0 30px 25px rgba(0,0,0,0.15)
+        );
+
+    transform:
+        rotate(-8deg);
+
+    transition:
+        transform 0.5s ease;
+}
+
+
+.hero-image:hover img {
+
+    transform:
+        rotate(-4deg)
+        scale(1.04);
+}
+
+
+/* =========================================================
+   7. SECTIONS
+   ========================================================= */
+
+.collections,
+.a-propos,
+.contact {
+
+    padding:
+        100px 0;
+}
+
+
+.entete-section {
+
+    display: flex;
+
+    align-items: end;
+
+    justify-content: space-between;
+
+    gap: 30px;
+
+    margin-bottom:
+        35px;
+}
+
+
+.entete-section h2,
+.contact h2,
+.a-propos h2 {
+
+    font-size:
+        clamp(2rem, 4vw, 3rem);
+
+    line-height:
+        1.1;
+
+    letter-spacing:
+        -1.5px;
+}
+
+
+.lien-section {
+
+    color:
+        var(--noir);
+
+    font-size:
+        0.9rem;
+
+    font-weight:
+        600;
+
+    text-decoration:
+        none;
+
+    transition:
+        color var(--transition);
+}
+
+
+.lien-section:hover {
+
+    color:
+        var(--bleu);
+}
+
+
+/* =========================================================
+   8. FILTRES
+   ========================================================= */
+
+.filtres {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom:
+        35px;
+
+    flex-wrap: wrap;
+}
+
+
+.filtre {
+
+    border:
+        1px solid var(--bordure);
+
+    background:
+        var(--blanc);
+
+    padding:
+        9px 20px;
+
+    border-radius:
+        30px;
+
+    cursor:
+        pointer;
+
+    font-size:
+        0.85rem;
+
+    transition:
+        all var(--transition);
+}
+
+
+.filtre:hover {
+
+    border-color:
+        var(--bleu);
+
+    color:
+        var(--bleu);
+}
+
+
+.filtre.actif {
+
+    background:
+        var(--noir);
+
+    border-color:
+        var(--noir);
+
+    color:
+        var(--blanc);
+}
+
+
+/* =========================================================
+   9. CARTES PRODUITS
+   ========================================================= */
+
+.grille-produits {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap:
+        22px;
+}
+
+
+.carte-produit {
+
+    border:
+        1px solid var(--bordure);
+
+    border-radius:
+        var(--rayon);
+
+    overflow:
+        hidden;
+
+    background:
+        var(--blanc);
+
+    transition:
+        all var(--transition);
+}
+
+
+.carte-produit:hover {
+
+    transform:
+        translateY(-6px);
+
+    box-shadow:
+        var(--ombre-hover);
+}
+
+
+/* IMAGE */
+
+.image-produit {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    height:
+        270px;
+
+    padding:
+        20px;
+
+    background:
+        #f7f7f8;
+
+    overflow:
+        hidden;
+}
+
+
+.image-produit img {
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        contain;
+
+    transition:
+        transform 0.4s ease;
+}
+
+
+.carte-produit:hover
+.image-produit img {
+
+    transform:
+        scale(1.06);
+}
+
+
+/* INFORMATIONS */
+
+.infos-produit {
+
+    padding:
+        20px;
+}
+
+
+.categorie-produit {
+
+    color:
+        var(--gris);
+
+    font-size:
+        0.72rem;
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        1px;
+}
+
+
+.infos-produit h3 {
+
+    margin:
+        5px 0 8px;
+
+    font-size:
+        1.1rem;
+}
+
+
+.prix {
+
+    margin-bottom:
+        18px;
+
+    font-size:
+        0.95rem;
+
+    font-weight:
+        700;
+}
+
+
+.voir-produit {
+
+    display:
+        inline-block;
+
+    color:
+        var(--bleu);
+
+    font-size:
+        0.85rem;
+
+    font-weight:
+        600;
+
+    text-decoration:
+        none;
+}
+
+
+.voir-produit:hover {
+
+    text-decoration:
+        underline;
+}
+
+
+/* =========================================================
+   10. À PROPOS
+   ========================================================= */
+
+.a-propos {
+
+    background:
+        var(--gris-clair);
+}
+
+
+.a-propos-contenu {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    align-items:
+        center;
+
+    gap:
+        80px;
+}
+
+
+.a-propos-image {
+
+    overflow:
+        hidden;
+
+    border-radius:
+        var(--rayon);
+}
+
+
+.a-propos-image img {
+
+    width:
+        100%;
+
+    height:
+        480px;
+
+    object-fit:
+        cover;
+}
+
+
+.a-propos-texte {
+
+    max-width:
+        520px;
+}
+
+
+.a-propos-texte h2 {
+
+    margin-bottom:
+        24px;
+}
+
+
+.a-propos-texte p {
+
+    margin-bottom:
+        16px;
+
+    color:
+        var(--gris-fonce);
+}
+
+
+/* =========================================================
+   11. CONTACT
+   ========================================================= */
+
+.contact {
+
+    background:
+        var(--blanc);
+}
+
+
+.contact-entete {
+
+    max-width:
+        650px;
+
+    margin-bottom:
+        45px;
+}
+
+
+.contact-entete p {
+
+    margin-top:
+        15px;
+
+    color:
+        var(--gris);
+}
+
+
+.contact-cartes {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap:
+        20px;
+}
+
+
+.contact-carte {
+
+    padding:
+        30px;
+
+    border:
+        1px solid var(--bordure);
+
+    border-radius:
+        var(--rayon);
+
+    transition:
+        all var(--transition);
+}
+
+
+.contact-carte:hover {
+
+    transform:
+        translateY(-4px);
+
+    box-shadow:
+        var(--ombre-legere);
+}
+
+
+.contact-icone {
+
+    width:
+        45px;
+
+    height:
+        45px;
+
+    margin-bottom:
+        20px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        var(--bleu-tres-clair);
+
+    color:
+        var(--bleu);
+
+    font-weight:
+        700;
+}
+
+
+.contact-carte h3 {
+
+    margin-bottom:
+        5px;
+
+    font-size:
+        1rem;
+}
+
+
+.contact-carte p {
+
+    color:
+        var(--gris);
+}
+
+
+/* =========================================================
+   12. FOOTER
+   ========================================================= */
+
+.footer {
+
+    padding:
+        70px 0 25px;
+
+    color:
+        #cbd0da;
+
+    background:
+        #111827;
+}
+
+
+.footer-contenu {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        2fr 1fr 1fr;
+
+    gap:
+        60px;
+
+    padding-bottom:
+        55px;
+
+    border-bottom:
+        1px solid #29303d;
+}
+
+
+.logo-footer {
+
+    color:
+        var(--blanc);
+}
+
+
+.footer-marque p {
+
+    max-width:
+        280px;
+
+    margin-top:
+        15px;
+
+    color:
+        #9ca3af;
+}
+
+
+.footer-colonne {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        10px;
+}
+
+
+.footer-colonne h3 {
+
+    margin-bottom:
+        8px;
+
+    color:
+        var(--blanc);
+
+    font-size:
+        0.95rem;
+}
+
+
+.footer-colonne a {
+
+    color:
+        #9ca3af;
+
+    font-size:
+        0.88rem;
+
+    text-decoration:
+        none;
+
+    transition:
+        color var(--transition);
+}
+
+
+.footer-colonne a:hover {
+
+    color:
+        var(--blanc);
+}
+
+
+.copyright {
+
+    padding-top:
+        22px;
+
+    text-align:
+        center;
+
+    color:
+        #6b7280;
+
+    font-size:
+        0.8rem;
+}
+
+
+/* =========================================================
+   13. RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 950px) {
+
+    .navigation {
+        display:
+            none;
+    }
+
+
+    .hero-contenu {
+
+        grid-template-columns:
+            1fr;
+
+        text-align:
+            center;
+
+        gap:
+            30px;
+    }
+
+
+    .hero-texte {
+
+        max-width:
+            700px;
+
+        margin:
+            0 auto;
+    }
+
+
+    .hero-texte p {
+
+        margin-left:
+            auto;
+
+        margin-right:
+            auto;
+    }
+
+
+    .hero-actions {
+
+        justify-content:
+            center;
+    }
+
+
+    .hero-image {
+
+        min-height:
+            350px;
+    }
+
+
+    .grille-produits {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .a-propos-contenu {
+
+        grid-template-columns:
+            1fr;
+
+        gap:
+            45px;
+    }
+
+
+    .a-propos-texte {
+
+        max-width:
+            none;
+    }
+
+
+    .contact-cartes {
+
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .footer-contenu {
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .header-contenu {
+
+        min-height:
+            68px;
+    }
+
+
+    .hero {
+
+        padding:
+            60px 0;
+    }
+
+
+    .hero h1 {
+
+        font-size:
+            3rem;
+
+        letter-spacing:
+            -2px;
+    }
+
+
+    .hero-image {
+
+        min-height:
+            280px;
+    }
+
+
+    .hero-image-fond {
+
+        width:
+            280px;
+
+        height:
+            280px;
+    }
+
+
+    .collections,
+    .a-propos,
+    .contact {
+
+        padding:
+            70px 0;
+    }
+
+
+    .entete-section {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+    }
+
+
+    .grille-produits {
+
+        grid-template-columns:
+            1fr;
+    }
+
+    .image-produit {
+        height: 300px;
+    }
+
+    .footer-contenu {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+
+}

@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KTN Shoes | Chaussures pour toute la famille</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- ================= HEADER ================= -->
+
+    <header class="header">
+        <div class="conteneur header-contenu">
+
+            <a href="index.html" class="logo">
+                KTN<span>SHOES</span>
+            </a>
+
+            <nav class="navigation">
+                <ul>
+                    <li>
+                        <a href="index.html" class="actif">Accueil</a>
+                    </li>
+
+                    <li>
+                        <a href="catalogue.html">Catalogue</a>
+                    </li>
+
+                    <li>
+                        <a href="#a-propos">À propos</a>
+                    </li>
+
+                    <li>
+                        <a href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <a href="panier.html" class="lien-panier" aria-label="Voir le panier">
+
+                <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+
+                <span class="pastille-panier">0</span>
+
+            </a>
+
+        </div>
+    </header>
+
+
+    <main>
+
+        <!-- ================= HERO ================= -->
+
+        <section class="hero">
+
+            <div class="conteneur hero-contenu">
+
+                <div class="hero-texte">
+
+                    <span class="sur-titre">
+                        KTN SHOES
+                    </span>
+
+                    <h1>
+                        Votre style commence
+                        <span>par vos pieds.</span>
+                    </h1>
+
+                    <p>
+                        Découvrez notre sélection de chaussures pensées
+                        pour allier confort, élégance et personnalité.
+                    </p>
+
+                    <div class="hero-actions">
+
+                        <a href="catalogue.html" class="bouton bouton-primaire">
+                            Découvrir la collection
+                        </a>
+
+                        <a href="#collections" class="bouton bouton-secondaire">
+                            Voir les nouveautés
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="hero-image">
+
+                    <div class="hero-image-fond"></div>
+
+                    <!-- Remplace l'extension si nécessaire -->
+                    <img
+                        src="images/ktn-runner1.jpg"
+                        alt="Chaussure KTN Shoes"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= COLLECTIONS ================= -->
+
+        <section id="collections" class="collections">
+
+            <div class="conteneur">
+
+                <div class="entete-section">
+
+                    <div>
+                        <span class="sur-titre">
+                            Notre sélection
+                        </span>
+
+                        <h2>
+                            Trouvez la paire qui vous ressemble
+                        </h2>
+                    </div>
+
+                    <a href="catalogue.html" class="lien-section">
+                        Voir tout le catalogue →
+                    </a>
+
+                </div>
+
+
+                <div class="filtres">
+
+                    <button class="filtre actif">
+                        Toutes
+                    </button>
+
+                    <button class="filtre">
+                        Homme
+                    </button>
+
+                    <button class="filtre">
+                        Femme
+                    </button>
+
+                    <button class="filtre">
+                        Enfant
+                    </button>
+
+                </div>
+
+
+                <div class="grille-produits">
+
+                    <!-- PRODUIT 1 -->
+
+                    <article class="carte-produit">
+
+                        <a href="produit.html?id=1" class="image-produit">
+
+                            <img
+                                src="images/ktn-runner1.jpg"
+                                alt="KTN Runner"
+                            >
+
+                        </a>
+
+                        <div class="infos-produit">
+
+                            <span class="categorie-produit">
+                                Homme
+                            </span>
+
+                            <h3>
+                                KTN Runner
+                            </h3>
+
+                            <p class="prix">
+                                35 000 FCFA
+                            </p>
+
+                            <a
+                                href="produit.html?id=1"
+                                class="voir-produit"
+                            >
+                                Découvrir
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PRODUIT 2 -->
+
+                    <article class="carte-produit">
+
+                        <a href="produit.html?id=5" class="image-produit">
+
+                            <img
+                                src="images/ktn-comfort1.jpg"
+                                alt="KTN Comfort"
+                            >
+
+                        </a>
+
+                        <div class="infos-produit">
+
+                            <span class="categorie-produit">
+                                Femme
+                            </span>
+
+                            <h3>
+                                KTN Comfort
+                            </h3>
+
+                            <p class="prix">
+                                32 000 FCFA
+                            </p>
+
+                            <a
+                                href="produit.html?id=5"
+                                class="voir-produit"
+                            >
+                                Découvrir
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PRODUIT 3 -->
+
+                    <article class="carte-produit">
+
+                        <a href="produit.html?id=9" class="image-produit">
+
+                            <img
+                                src="images/ktn-junior1.jpg"
+                                alt="KTN Junior"
+                            >
+
+                        </a>
+
+                        <div class="infos-produit">
+
+                            <span class="categorie-produit">
+                                Enfant
+                            </span>
+
+                            <h3>
+                                KTN Junior
+                            </h3>
+
+                            <p class="prix">
+                                20 000 FCFA
+                            </p>
+
+                            <a
+                                href="produit.html?id=9"
+                                class="voir-produit"
+                            >
+                                Découvrir
+                            </a>
+
+                        </div>
+
+                    </article>
+
+
+                    <!-- PRODUIT 4 -->
+
+                    <article class="carte-produit">
+
+                        <a href="produit.html?id=6" class="image-produit">
+
+                            <img
+                                src="images/ktn-elegance1.jpg"
+                                alt="KTN Élégance"
+                            >
+
+                        </a>
+
+                        <div class="infos-produit">
+
+                            <span class="categorie-produit">
+                                Femme
+                            </span>
+
+                            <h3>
+                                KTN Élégance
+                            </h3>
+
+                            <p class="prix">
+                                38 000 FCFA
+                            </p>
+
+                            <a
+                                href="produit.html?id=6"
+                                class="voir-produit"
+                            >
+                                Découvrir
+                            </a>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= A PROPOS ================= -->
+
+        <section id="a-propos" class="a-propos">
+
+            <div class="conteneur a-propos-contenu">
+
+                <div class="a-propos-image">
+
+                    <img
+                        src="images/ktn-urban.jpg"
+                        alt="Collection KTN Shoes"
+                    >
+
+                </div>
+
+
+                <div class="a-propos-texte">
+
+                    <span class="sur-titre">
+                        À propos de KTN Shoes
+                    </span>
+
+                    <h2>
+                        Des chaussures qui accompagnent
+                        votre quotidien.
+                    </h2>
+
+                    <p>
+                        KTN Shoes est une boutique dédiée aux chaussures
+                        pour homme, femme et enfant.
+                    </p>
+
+                    <p>
+                        Nous souhaitons proposer des modèles qui combinent
+                        style, confort et qualité, afin que chacun puisse
+                        trouver la paire qui correspond à son univers.
+                    </p>
+
+                    <a href="catalogue.html" class="lien-section">
+                        Découvrir notre collection →
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= CONTACT ================= -->
+
+        <section id="contact" class="contact">
+
+            <div class="conteneur">
+
+                <div class="contact-entete">
+
+                    <span class="sur-titre">
+                        Une question ?
+                    </span>
+
+                    <h2>
+                        Nous sommes à votre écoute.
+                    </h2>
+
+                    <p>
+                        Pour toute question concernant nos produits,
+                        n'hésitez pas à nous contacter.
+                    </p>
+
+                </div>
+
+
+                <div class="contact-cartes">
+
+                    <div class="contact-carte">
+
+                        <div class="contact-icone">
+                            ☎
+                        </div>
+
+                        <h3>
+                            Téléphone
+                        </h3>
+
+                        <p>
+                            +229 01 XX XX XX
+                        </p>
+
+                    </div>
+
+
+                    <div class="contact-carte">
+
+                        <div class="contact-icone">
+                            @
+                        </div>
+
+                        <h3>
+                            Email
+                        </h3>
+
+                        <p>
+                            contact@ktnshoes.com
+                        </p>
+
+                    </div>
+
+
+                    <div class="contact-carte">
+
+                        <div class="contact-icone">
+                            ●
+                        </div>
+
+                        <h3>
+                            Localisation
+                        </h3>
+
+                        <p>
+                            Cotonou, Bénin
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="conteneur footer-contenu">
+
+            <div class="footer-marque">
+
+                <a href="index.html" class="logo logo-footer">
+                    KTN<span>SHOES</span>
+                </a>
+
+                <p>
+                    Le style commence par vos pieds.
+                </p>
+
+            </div>
+
+
+            <div class="footer-colonne">
+
+                <h3>
+                    Navigation
+                </h3>
+
+                <a href="index.html">
+                    Accueil
+                </a>
+
+                <a href="catalogue.html">
+                    Catalogue
+                </a>
+
+                <a href="#a-propos">
+                    À propos
+                </a>
+
+                <a href="#contact">
+                    Contact
+                </a>
+
+            </div>
+
+
+            <div class="footer-colonne">
+
+                <h3>
+                    Informations
+                </h3>
+
+                <a href="#">
+                    Livraison
+                </a>
+
+                <a href="#">
+                    Retours
+                </a>
+
+                <a href="#">
+                    Conditions générales
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            <p>
+                © 2026 KTN Shoes — Tous droits réservés.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+</body>
+</html>
