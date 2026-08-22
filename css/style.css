@@ -1528,13 +1528,12 @@ button {
         hidden;
 
     border:
-        1px solid rgba(232,232,232,0.85);
+        10px solid rgba(232, 231, 231, 0.85);
 
     border-radius:
         var(--rayon);
 
-    background:
-        white;
+    background:#ffffff;
 
     transition:
         transform var(--transition),
@@ -1562,7 +1561,7 @@ button {
         relative;
 
     height:
-        290px;
+        300px;
 
     display:
         flex;
@@ -3648,3 +3647,217 @@ button:focus-visible {
     }
 
 }
+
+
+
+
+
+
+/* =========================================================
+   KTN SHOES — AJOUTS CSS POUR LA PAGE CATALOGUE
+   À ajouter à la fin de css/style.css
+========================================================= */
+
+
+/* =========================================================
+   HERO CATALOGUE
+========================================================= */
+
+.catalogue-hero {
+    position: relative;
+    min-height: 350px;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    color: var(--blanc);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(17,17,17,0.88),
+            rgba(17,17,17,0.48),
+            rgba(17,17,17,0.20)
+        ),
+        url("../images/for_men3.jpg") center / cover no-repeat;
+}
+
+.catalogue-hero-contenu {
+    position: relative;
+    z-index: 2;
+}
+
+.catalogue-hero .sur-titre {
+    color: #aabaff;
+    margin-bottom: 13px;
+}
+
+.catalogue-hero h1 {
+    margin-bottom: 17px;
+
+    font-size: clamp(3rem, 6vw, 5.2rem);
+    line-height: 0.92;
+    letter-spacing: -4px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.catalogue-hero h1 strong {
+    color: #aabaff;
+}
+
+.catalogue-hero p {
+    max-width: 510px;
+
+    color: rgba(255,255,255,0.82);
+
+    font-size: 0.98rem;
+}
+
+
+/* =========================================================
+   ZONE CATALOGUE
+========================================================= */
+
+.catalogue {
+    padding: 85px 0 110px;
+    background: var(--gris-clair);
+}
+
+.catalogue-entete {
+    margin-bottom: 28px;
+}
+
+
+/* =========================================================
+   BANNIÈRE ÉDITORIALE
+========================================================= */
+
+.catalogue-editorial {
+    grid-column: 1 / -1;
+
+    position: relative;
+    min-height: 310px;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    margin: 28px 0;
+
+    border-radius: var(--rayon);
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(17,17,17,0.88),
+            rgba(17,17,17,0.48),
+            rgba(17,17,17,0.12)
+        ),
+        url("../images/image_a-propos2.jpg") center / cover no-repeat;
+}
+
+.catalogue-editorial-contenu {
+    position: relative;
+    z-index: 2;
+
+    max-width: 520px;
+    padding: 45px;
+
+    color: white;
+}
+
+.catalogue-editorial .sur-titre {
+    color: #aabaff;
+    margin-bottom: 12px;
+}
+
+.catalogue-editorial h2 {
+    margin-bottom: 14px;
+
+    font-size: clamp(2.2rem, 4vw, 3.4rem);
+    line-height: 0.98;
+    letter-spacing: -2px;
+}
+
+.catalogue-editorial p {
+    max-width: 440px;
+
+    color: rgba(255,255,255,0.78);
+    font-size: 0.92rem;
+}
+
+.grille-produits2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+
+/* =========================================================
+   FAVORIS — ÉTAT SÉLECTIONNÉ
+========================================================= */
+
+.favori-produit.selectionne {
+    color: white;
+    background: var(--bleu);
+    border-color: var(--bleu);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 850px) {
+
+    .catalogue-hero {
+        min-height: 310px;
+    }
+
+    .catalogue-editorial {
+        min-height: 290px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .catalogue {
+        padding: 65px 0 80px;
+    }
+
+    .catalogue-hero {
+        min-height: 285px;
+    }
+
+    .catalogue-hero h1 {
+        font-size: 3rem;
+        letter-spacing: -2px;
+    }
+
+    .catalogue-editorial {
+        min-height: 310px;
+        margin: 18px 0;
+    }
+
+    .catalogue-editorial-contenu {
+        padding: 30px;
+    }
+
+    .catalogue-editorial h2 {
+        font-size: 2.2rem;
+    }
+
+}
+
+
+
+
+
+
+
