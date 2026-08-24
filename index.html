@@ -20,22 +20,15 @@
         rel="stylesheet"
         href="css/style.css"
     >
+    <link rel="stylesheet" href="css/ajouts.css">
 </head>
 
 
 <body>
 
-<!--Voici le debut du body-->
-<!-- =========================================================
-     HEADER
-========================================================= -->
-
 <header class="header">
 
     <div class="conteneur header-contenu">
-
-
-        <!-- LOGO -->
 
         <a
             href="index.html"
@@ -44,9 +37,6 @@
         >
             KTN<span>SHOES</span>
         </a>
-
-
-        <!-- NAVIGATION -->
 
         <nav
             class="navigation"
@@ -86,13 +76,7 @@
 
         </nav>
 
-
-        <!-- ACTIONS -->
-
         <div class="header-actions">
-
-
-            <!-- PANIER -->
 
             <a
                 href="panier.html"
@@ -123,20 +107,15 @@
 
                 </svg>
 
-
                 <span class="panier-texte">
                     Panier
                 </span>
-
 
                 <span class="pastille-panier">
                     0
                 </span>
 
             </a>
-
-
-            <!-- MENU MOBILE -->
 
             <button
                 class="menu-mobile"
@@ -157,23 +136,13 @@
 </header>
 
 
-
 <main>
-
-
-<!-- =========================================================
-     HERO
-========================================================= -->
 
 <section class="hero">
 
     <div class="conteneur hero-contenu">
 
-
-        <!-- TEXTE -->
-
         <div class="hero-texte">
-
 
             <div class="hero-badge">
 
@@ -182,7 +151,6 @@
                 Nouvelle collection 2026
 
             </div>
-
 
             <h1>
 
@@ -194,14 +162,12 @@
 
             </h1>
 
-
             <p>
 
                 Découvrez notre sélection de chaussures pour hommes, femmes et enfants — 
                 alliant style, confort et accessibilité.
 
             </p>
-
 
             <div class="hero-actions">
 
@@ -218,7 +184,6 @@
 
                 </a>
 
-
                 <a
                     href="#collections"
                     class="bouton bouton-secondaire"
@@ -230,11 +195,7 @@
 
             </div>
 
-
-            <!-- STATISTIQUES -->
-
             <div class="hero-stats">
-
 
                 <div class="hero-stat">
 
@@ -248,9 +209,7 @@
 
                 </div>
 
-
                 <div class="hero-stat-separateur"></div>
-
 
                 <div class="hero-stat">
 
@@ -264,9 +223,7 @@
 
                 </div>
 
-
                 <div class="hero-stat-separateur"></div>
-
 
                 <div class="hero-stat">
 
@@ -284,14 +241,9 @@
 
         </div>
 
-
-
-        <!-- VISUEL -->
-
         <div class="hero-visuel">
 
             <div class="hero-cercle"></div>
-
 
             <div class="hero-label">
 
@@ -303,7 +255,6 @@
 
             </div>
 
-
             <div class="hero-numero">
 
                 01
@@ -314,12 +265,10 @@
 
             </div>
 
-
             <img
                 src="images/ktn-runner1.jpg"
                 alt="KTN Runner"
             >
-
 
             <div class="hero-flèche">
                 ↓
@@ -331,16 +280,9 @@
 
 </section>
 
-
-
-<!-- =========================================================
-     CATÉGORIES
-========================================================= -->
-
 <section class="categories">
 
     <div class="conteneur">
-
 
         <div class="entete-section">
 
@@ -357,7 +299,6 @@
 
             </div>
 
-
             <a
                 href="catalogue.html"
                 class="lien-section"
@@ -373,12 +314,7 @@
 
         </div>
 
-
-
         <div class="grille-categories">
-
-
-            <!-- FEMME -->
 
             <a
                 href="catalogue.html"
@@ -408,10 +344,6 @@
 
             </a>
 
-
-
-            <!-- HOMME -->
-
             <a
                 href="catalogue.html"
                 class="categorie-card"
@@ -439,10 +371,6 @@
                 </div>
 
             </a>
-
-
-
-            <!-- ENFANT -->
 
             <a
                 href="catalogue.html"
@@ -478,19 +406,12 @@
 
 </section>
 
-
-
-<!-- =========================================================
-     PRODUITS
-========================================================= -->
-
 <section
     id="collections"
     class="collections"
 >
 
     <div class="conteneur">
-
 
         <div class="entete-section">
 
@@ -507,7 +428,6 @@
 
             </div>
 
-
             <a
                 href="catalogue.html"
                 class="lien-section"
@@ -523,10 +443,6 @@
 
         </div>
 
-
-
-        <!-- FILTRES -->
-
         <div
             class="filtres"
             aria-label="Filtrer les produits"
@@ -535,6 +451,7 @@
             <button
                 class="filtre actif"
                 type="button"
+                data-filtre="tous"
             >
                 Toutes
             </button>
@@ -542,6 +459,7 @@
             <button
                 class="filtre"
                 type="button"
+                data-filtre="femme"
             >
                 Femme
             </button>
@@ -549,6 +467,7 @@
             <button
                 class="filtre"
                 type="button"
+                data-filtre="homme"
             >
                 Homme
             </button>
@@ -556,36 +475,29 @@
             <button
                 class="filtre"
                 type="button"
+                data-filtre="enfant"
             >
                 Enfant
             </button>
 
         </div>
 
-
-
-        <!-- GRILLE -->
-
         <div class="grille-produits">
 
-
-            <!-- PRODUIT 1 -->
-
-            <article class="carte-produit">
+            <article class="carte-produit" data-categorie="homme">
 
                 <div class="badge-produit">
                     Bestseller
                 </div>
 
-
                 <button
                     class="favori-produit"
                     type="button"
+                    data-id="1"
                     aria-label="Ajouter KTN Runner aux favoris"
                 >
                     ♡
                 </button>
-
 
                 <a
                     href="produit.html?id=1"
@@ -602,7 +514,6 @@
                     </span>
 
                 </a>
-
 
                 <div class="infos-produit">
 
@@ -638,28 +549,23 @@
 
             </article>
 
-
-
-            <!-- PRODUIT 2 -->
-
-            <article class="carte-produit">
+            <article class="carte-produit" data-categorie="femme">
 
                 <div class="badge-produit nouveau">
                     Nouveau
                 </div>
 
-
                 <button
                     class="favori-produit"
                     type="button"
+                    data-id="8"
                     aria-label="Ajouter KTN Comfort aux favoris"
                 >
                     ♡
                 </button>
 
-
                 <a
-                    href="produit.html?id=5"
+                    href="produit.html?id=8"
                     class="image-produit"
                 >
 
@@ -673,7 +579,6 @@
                     </span>
 
                 </a>
-
 
                 <div class="infos-produit">
 
@@ -696,7 +601,7 @@
                         </strong>
 
                         <a
-                            href="produit.html?id=5"
+                            href="produit.html?id=8"
                             class="ajouter-produit"
                             aria-label="Voir KTN Comfort"
                         >
@@ -709,23 +614,19 @@
 
             </article>
 
-
-
-            <!-- PRODUIT 3 -->
-
-            <article class="carte-produit">
+            <article class="carte-produit" data-categorie="enfant">
 
                 <button
                     class="favori-produit"
                     type="button"
+                    data-id="12"
                     aria-label="Ajouter KTN Junior aux favoris"
                 >
                     ♡
                 </button>
 
-
                 <a
-                    href="produit.html?id=9"
+                    href="produit.html?id=12"
                     class="image-produit"
                 >
 
@@ -739,7 +640,6 @@
                     </span>
 
                 </a>
-
 
                 <div class="infos-produit">
 
@@ -762,7 +662,7 @@
                         </strong>
 
                         <a
-                            href="produit.html?id=9"
+                            href="produit.html?id=12"
                             class="ajouter-produit"
                             aria-label="Voir KTN Junior"
                         >
@@ -775,28 +675,23 @@
 
             </article>
 
-
-
-            <!-- PRODUIT 4 -->
-
-            <article class="carte-produit">
+            <article class="carte-produit" data-categorie="femme">
 
                 <div class="badge-produit nouveau">
                     Nouveau
                 </div>
 
-
                 <button
                     class="favori-produit"
                     type="button"
+                    data-id="7"
                     aria-label="Ajouter KTN Élégance aux favoris"
                 >
                     ♡
                 </button>
 
-
                 <a
-                    href="produit.html?id=6"
+                    href="produit.html?id=7"
                     class="image-produit"
                 >
 
@@ -810,7 +705,6 @@
                     </span>
 
                 </a>
-
 
                 <div class="infos-produit">
 
@@ -833,7 +727,7 @@
                         </strong>
 
                         <a
-                            href="produit.html?id=6"
+                            href="produit.html?id=7"
                             class="ajouter-produit"
                             aria-label="Voir KTN Élégance"
                         >
@@ -852,16 +746,9 @@
 
 </section>
 
-
-
-<!-- =========================================================
-     EXPÉRIENCE KTN
-========================================================= -->
-
 <section class="avantages">
 
     <div class="conteneur">
-
 
         <div class="entete-centree">
 
@@ -880,12 +767,7 @@
 
         </div>
 
-
-
         <div class="grille-avantages">
-
-
-            <!-- STYLE -->
 
             <article class="avantage">
 
@@ -914,10 +796,6 @@
 
             </article>
 
-
-
-            <!-- CONFORT -->
-
             <article class="avantage">
 
                 <div class="avantage-top">
@@ -945,10 +823,6 @@
 
             </article>
 
-
-
-            <!-- QUALITÉ -->
-
             <article class="avantage">
 
                 <div class="avantage-top">
@@ -975,10 +849,6 @@
                 <span class="avantage-ligne"></span>
 
             </article>
-
-
-
-            <!-- PROXIMITÉ -->
 
             <article class="avantage">
 
@@ -1013,19 +883,12 @@
 
 </section>
 
-
-
-<!-- =========================================================
-     À PROPOS
-========================================================= -->
-
 <section
     id="a-propos"
     class="a-propos"
 >
 
     <div class="conteneur a-propos-contenu">
-
 
         <div class="a-propos-image">
 
@@ -1047,8 +910,6 @@
             </div>
 
         </div>
-
-
 
         <div class="a-propos-texte">
 
@@ -1077,7 +938,6 @@
                 chacun puisse trouver la paire qui lui correspond.
             </p>
 
-
             <div class="a-propos-chiffres">
 
                 <div>
@@ -1092,7 +952,6 @@
 
                 </div>
 
-
                 <div>
 
                     <strong>
@@ -1104,7 +963,6 @@
                     </span>
 
                 </div>
-
 
                 <div>
 
@@ -1119,7 +977,6 @@
                 </div>
 
             </div>
-
 
             <a
                 href="catalogue.html"
@@ -1140,12 +997,6 @@
 
 </section>
 
-
-
-<!-- =========================================================
-     CONTACT
-========================================================= -->
-
 <section
     id="contact"
     class="contact"
@@ -1153,9 +1004,7 @@
 
     <div class="conteneur">
 
-
         <div class="contact-box">
-
 
             <div class="contact-texte">
 
@@ -1177,10 +1026,7 @@
 
             </div>
 
-
-
             <div class="contact-infos">
-
 
                 <a
                     href="tel:+22900000000"
@@ -1205,8 +1051,6 @@
 
                 </a>
 
-
-
                 <a
                     href="mailto:contact@ktnshoes.com"
                     class="contact-info"
@@ -1229,8 +1073,6 @@
                     </span>
 
                 </a>
-
-
 
                 <div class="contact-info">
 
@@ -1260,140 +1102,78 @@
 
 </section>
 
-
-
 </main>
 
 
+<footer class="footer">
 
-<header class="header">
+    <div class="conteneur">
 
-    <div class="conteneur header-contenu">
+        <div class="footer-principal">
 
+            <div class="footer-marque">
 
-        <!-- LOGO -->
-
-        <a
-            href="index.html"
-            class="logo"
-            aria-label="KTN Shoes - Accueil"
-        >
-            KTN<span>SHOES</span>
-        </a>
-
-
-        <!-- NAVIGATION -->
-
-        <nav
-            class="navigation"
-            aria-label="Navigation principale"
-        >
-
-            <ul>
-
-                <li>
-                    <a
-                        href="index.html"
-                        class="actif"
-                    >
-                        Accueil
-                    </a>
-                </li>
-
-                <li>
-                    <a href="catalogue.html">
-                        Catalogue
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#a-propos">
-                        À propos
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#contact">
-                        Contact
-                    </a>
-                </li>
-
-            </ul>
-
-        </nav>
-
-
-        <!-- ACTIONS -->
-
-        <div class="header-actions">
-
-
-            <!-- PANIER -->
-
-            <a
-                href="panier.html"
-                class="panier-action"
-                aria-label="Voir le panier"
-            >
-
-                <svg
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
+                <a
+                    href="index.html"
+                    class="logo logo-footer"
                 >
+                    KTN<span>SHOES</span>
+                </a>
 
-                    <circle
-                        cx="9"
-                        cy="21"
-                        r="1"
-                    ></circle>
+                <p>
+                    Le style commence par vos pieds.
+                </p>
 
-                    <circle
-                        cx="20"
-                        cy="21"
-                        r="1"
-                    ></circle>
+            </div>
 
-                    <path
-                        d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
-                    ></path>
+            <div class="footer-social">
 
-                </svg>
-
-
-                <span class="panier-texte">
-                    Panier
+                <span>
+                    Suivez KTN Shoes
                 </span>
 
+                <div class="social-liens">
 
-                <span class="pastille-panier">
-                    0
-                </span>
+                    <a href="#" aria-label="Instagram">
+                        Instagram
+                    </a>
 
-            </a>
+                    <a href="#" aria-label="Facebook">
+                        Facebook
+                    </a>
 
+                    <a href="#" aria-label="TikTok">
+                        TikTok
+                    </a>
 
-            <!-- MENU MOBILE -->
+                    <a href="#" aria-label="WhatsApp">
+                        WhatsApp
+                    </a>
 
-            <button
-                class="menu-mobile"
-                aria-label="Ouvrir le menu"
-                aria-expanded="false"
-            >
+                </div>
 
-                <span></span>
-                <span></span>
-                <span></span>
+            </div>
 
-            </button>
+        </div>
+
+        <div class="footer-bas">
+
+            <p>
+                © 2026 KTN Shoes — Tous droits réservés.
+            </p>
+
+            <span>
+                Step into your style.
+            </span>
 
         </div>
 
     </div>
 
-</header>
+</footer>
 
 
-
+<script src="js/produits.js"></script>
 <script src="js/script.js"></script>
 
 </body>

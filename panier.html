@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="description"
+        content="KTN Shoes — Consultez et modifiez votre panier."
+    >
+
+    <title>KTN Shoes | Panier</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/ajouts.css">
+</head>
+
+<body>
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+    <div class="conteneur header-contenu">
+
+        <a href="index.html" class="logo" aria-label="KTN Shoes - Accueil">
+            KTN<span>SHOES</span>
+        </a>
+
+        <nav class="navigation" aria-label="Navigation principale">
+            <ul>
+                <li>
+                    <a href="index.html">Accueil</a>
+                </li>
+
+                <li>
+                    <a href="catalogue.html">Catalogue</a>
+                </li>
+
+                <li>
+                    <a href="index.html#a-propos">À propos</a>
+                </li>
+
+                <li>
+                    <a href="index.html#contact">Contact</a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+
+            <a
+                href="panier.html"
+                class="panier-action"
+                aria-label="Voir le panier"
+            >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path
+                        d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                    ></path>
+                </svg>
+
+                <span class="panier-texte">Panier</span>
+
+                <span class="pastille-panier">0</span>
+            </a>
+
+            <button
+                class="menu-mobile"
+                type="button"
+                aria-label="Ouvrir le menu"
+                aria-expanded="false"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main data-page="panier">
+
+<section class="panier-page">
+
+    <div class="conteneur">
+
+        <div class="panier-entete">
+            <h1>Votre panier</h1>
+        </div>
+
+
+        <!-- PANIER VIDE -->
+
+        <div class="panier-vide">
+
+            <div class="panier-vide-icone">
+                ♡
+            </div>
+
+            <h2>Votre panier est vide</h2>
+
+            <p>
+                Parcourez notre catalogue et trouvez la paire
+                qui vous correspond.
+            </p>
+
+            <a href="catalogue.html" class="bouton bouton-primaire">
+                Voir le catalogue
+                <span>→</span>
+            </a>
+
+        </div>
+
+
+        <!-- CONTENU DU PANIER -->
+
+        <div class="panier-contenu">
+
+            <div class="panier-liste"></div>
+
+            <aside class="panier-resume">
+
+                <h2>Résumé de la commande</h2>
+
+                <div class="resume-ligne">
+                    <span>Sous-total</span>
+                    <span class="resume-sous-total">0 FCFA</span>
+                </div>
+
+                <div class="resume-ligne">
+                    <span>Livraison</span>
+                    <span class="resume-livraison">0 FCFA</span>
+                </div>
+
+                <div class="resume-ligne resume-ligne-total">
+                    <span>Total</span>
+                    <span class="resume-total">0 FCFA</span>
+                </div>
+
+                <button class="panier-valider" type="button">
+                    Valider la commande
+                </button>
+
+                <a href="catalogue.html" class="panier-continuer">
+                    ← Continuer mes achats
+                </a>
+
+            </aside>
+
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    <div class="conteneur">
+
+        <div class="footer-principal">
+
+            <div class="footer-marque">
+
+                <a href="index.html" class="logo logo-footer">
+                    KTN<span>SHOES</span>
+                </a>
+
+                <p>
+                    Le style commence par vos pieds.
+                </p>
+
+            </div>
+
+
+            <div class="footer-social">
+
+                <span>
+                    Suivez KTN Shoes
+                </span>
+
+                <div class="social-liens">
+
+                    <a href="#" aria-label="Instagram">Instagram</a>
+                    <a href="#" aria-label="Facebook">Facebook</a>
+                    <a href="#" aria-label="TikTok">TikTok</a>
+                    <a href="#" aria-label="WhatsApp">WhatsApp</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="footer-bas">
+
+            <p>© 2026 KTN Shoes — Tous droits réservés.</p>
+
+            <span>Step into your style.</span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="js/produits.js"></script>
+<script src="js/script.js"></script>
+
+</body>
+</html>
