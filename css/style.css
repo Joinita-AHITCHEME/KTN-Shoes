@@ -4388,3 +4388,367 @@ button:focus-visible {
     gap: 20px;
 }
 
+
+
+
+/* =========================================================
+   7. PAGE PANIER
+========================================================= */
+
+.panier-page {
+    padding: 60px 0 110px;
+    background: var(--gris-tres-clair);
+}
+
+.panier-entete {
+    margin-bottom: 40px;
+}
+
+.panier-entete h1 {
+    font-size: clamp(2rem, 3.4vw, 2.8rem);
+    letter-spacing: -1.5px;
+}
+
+.panier-contenu {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.panier-liste {
+    display: grid;
+    gap: 16px;
+}
+
+
+/* -- Une ligne du panier -- */
+
+.ligne-panier {
+    display: grid;
+    grid-template-columns: 96px 1fr auto auto;
+    align-items: center;
+    gap: 20px;
+
+    padding: 18px;
+
+    border: 1px solid var(--bordure);
+    border-radius: var(--rayon-petit);
+    background: white;
+}
+
+.ligne-panier-image {
+    width: 96px;
+    height: 96px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+    background: #f5f6f8;
+
+    overflow: hidden;
+}
+
+.ligne-panier-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.ligne-panier-infos {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.ligne-panier-categorie {
+    color: var(--gris);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.ligne-panier-nom {
+    color: var(--noir);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 750;
+}
+
+.ligne-panier-nom:hover {
+    color: var(--bleu);
+}
+
+.ligne-panier-taille {
+    color: var(--gris);
+    font-size: 0.8rem;
+}
+
+.ligne-panier-supprimer {
+    align-self: flex-start;
+    margin-top: 6px;
+
+    border: none;
+    background: none;
+
+    color: var(--gris);
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration: underline;
+
+    cursor: pointer;
+}
+
+.ligne-panier-supprimer:hover {
+    color: #d33;
+}
+
+.ligne-panier-quantite {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    border: 1px solid var(--bordure);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.ligne-panier-quantite button {
+    width: 28px;
+    height: 28px;
+
+    border: none;
+    border-radius: 6px;
+    background: var(--gris-clair);
+
+    font-size: 0.95rem;
+
+    cursor: pointer;
+
+    transition: background var(--transition);
+}
+
+.ligne-panier-quantite button:hover {
+    background: var(--bleu-clair);
+    color: var(--bleu);
+}
+
+.ligne-quantite-valeur {
+    min-width: 18px;
+    text-align: center;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.ligne-panier-prix {
+    font-size: 1rem;
+    font-weight: 850;
+    white-space: nowrap;
+}
+
+
+/* -- Résumé de commande -- */
+
+.panier-resume {
+    padding: 28px;
+
+    border: 1px solid var(--bordure);
+    border-radius: var(--rayon);
+    background: white;
+
+    position: sticky;
+    top: 100px;
+}
+
+.panier-resume h2 {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+}
+
+.resume-ligne {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 12px;
+
+    color: var(--gris-fonce);
+    font-size: 0.88rem;
+}
+
+.resume-ligne.resume-ligne-total {
+    margin-top: 16px;
+    padding-top: 16px;
+
+    border-top: 1px solid var(--bordure);
+
+    color: var(--noir);
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.panier-valider {
+    width: 100%;
+    min-height: 52px;
+    margin-top: 22px;
+
+    border: none;
+    border-radius: 9px;
+
+    color: white;
+    background: var(--noir);
+
+    font-size: 0.9rem;
+    font-weight: 750;
+
+    cursor: pointer;
+
+    transition: all var(--transition);
+}
+
+.panier-valider:hover {
+    background: var(--bleu);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(49, 87, 213, 0.22);
+}
+
+.panier-continuer {
+    display: block;
+    margin-top: 14px;
+
+    text-align: center;
+
+    color: var(--gris);
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+.panier-continuer:hover {
+    color: var(--bleu);
+}
+
+
+/* -- Panier vide -- */
+
+.panier-vide {
+    display: none;
+
+    max-width: 420px;
+    margin: 40px auto;
+
+    text-align: center;
+}
+
+.panier-vide-icone {
+    margin: 0 auto 22px;
+
+    width: 74px;
+    height: 74px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: var(--bleu-clair);
+
+    color: var(--bleu);
+    font-size: 1.8rem;
+}
+
+.panier-vide h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.panier-vide p {
+    margin-bottom: 26px;
+    color: var(--gris);
+}
+
+
+/* =========================================================
+   8. RESPONSIVE — PRODUIT / PANIER
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .product-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .product-image-container {
+        height: 420px;
+    }
+
+    .product-infos {
+        max-width: none;
+    }
+
+    .produits-similaires-grille {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .panier-contenu {
+        grid-template-columns: 1fr;
+    }
+
+    .panier-resume {
+        position: static;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .product-image-container {
+        height: 320px;
+    }
+
+    .product-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .selecteur-quantite {
+        justify-content: center;
+    }
+
+    .produits-similaires-grille {
+        grid-template-columns: 1fr;
+    }
+
+    .ligne-panier {
+        grid-template-columns: 72px 1fr;
+        grid-template-areas:
+            "image infos"
+            "image quantite"
+            "image prix";
+        row-gap: 10px;
+    }
+
+    .ligne-panier-image {
+        grid-area: image;
+        width: 72px;
+        height: 72px;
+    }
+
+    .ligne-panier-infos {
+        grid-area: infos;
+    }
+
+    .ligne-panier-quantite {
+        grid-area: quantite;
+        justify-self: start;
+    }
+
+    .ligne-panier-prix {
+        grid-area: prix;
+        justify-self: start;
+    }
+
+}
