@@ -507,12 +507,12 @@ function afficherPanier() {
     if (panier.length === 0) {
         if (listeConteneur) listeConteneur.style.display = "none";
         if (resumeConteneur) resumeConteneur.style.display = "none";
-        if (panierVideConteneur) panierVideConteneur.style.display = "";
+        if (panierVideConteneur) panierVideConteneur.style.display = "block";
         return;
     }
 
-    if (listeConteneur) listeConteneur.style.display = "";
-    if (resumeConteneur) resumeConteneur.style.display = "";
+    if (listeConteneur) listeConteneur.style.display = "grid";
+    if (resumeConteneur) resumeConteneur.style.display = "block";
     if (panierVideConteneur) panierVideConteneur.style.display = "none";
 
     if (!listeConteneur) return;
