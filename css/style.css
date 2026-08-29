@@ -13,6 +13,8 @@
     --bleu: #3157d5;
     --bleu-fonce: #2445b5;
     --bleu-clair: #eef2ff;
+    --bleu-rgb: 49, 87, 213;
+    --bleu-clair-sombre: #8ea5ff;
 
     --noir: #111111;
     --noir-doux: #181818;
@@ -28,6 +30,14 @@
     --bordure-fonce: #dcdcdc;
 
     --footer: #111827;
+
+    /* -- Variables sémantiques (utilisées pour le mode sombre) -- */
+    --fond-page: var(--blanc);
+    --fond-alterne: var(--gris-clair);
+    --fond-carte: var(--blanc);
+    --texte: var(--noir);
+    --header-fond: rgba(255, 255, 255, 0.94);
+    --bouton-fond: var(--noir);
 
     --ombre-legere:
         0 10px 30px rgba(0, 0, 0, 0.05);
@@ -48,6 +58,38 @@
         10px;
 
 }
+
+
+/* =========================================================
+   MODE SOMBRE
+   Activé via l'attribut data-theme="sombre" sur <html>,
+   posé par js/script.js (bouton + préférence système + choix
+   mémorisé). Ne redéfinit que les variables : toute la mise
+   en page, les tailles et les ombres restent identiques.
+========================================================= */
+
+[data-theme="sombre"] {
+
+    --fond-page: #101012;
+    --fond-alterne: #18191c;
+    --fond-carte: #1c1d21;
+    --texte: #f2f2f4;
+
+    --gris: #9a9aa2;
+    --gris-fonce: #c2c2c8;
+    --gris-clair: #18191c;
+    --gris-tres-clair: #131316;
+
+    --bordure: #2b2c30;
+    --bordure-fonce: #35363c;
+
+    --bleu-clair: rgba(var(--bleu-rgb), 0.18);
+
+    --header-fond: rgba(16, 16, 18, 0.9);
+    --bouton-fond: #2c2d33;
+
+}
+
 
 
 /* =========================================================
@@ -74,10 +116,10 @@ body {
         Arial,
         sans-serif;
 
-    color: var(--noir);
+    color: var(--texte);
 
     background:
-        var(--blanc);
+        var(--fond-page);
 
     line-height:
         1.6;
@@ -139,7 +181,7 @@ button {
         1000;
 
     background:
-        rgba(255, 255, 255, 0.94);
+        var(--header-fond);
 
     backdrop-filter:
         blur(18px);
@@ -239,7 +281,7 @@ button {
         relative;
 
     color:
-        #383838;
+        var(--texte);
 
     text-decoration:
         none;
@@ -351,10 +393,10 @@ button {
         10px;
 
     color:
-        var(--noir);
+        var(--texte);
 
     background:
-        var(--blanc);
+        var(--fond-carte);
 
     text-decoration:
         none;
@@ -377,7 +419,7 @@ button {
         var(--bleu);
 
     border-color:
-        rgba(49, 87, 213, 0.3);
+        rgba(var(--bleu-rgb), 0.3);
 
     background:
         var(--bleu-clair);
@@ -451,6 +493,65 @@ button {
 
 /* MENU MOBILE */
 
+/* BASCULE THÈME (clair / sombre) */
+
+.theme-toggle {
+
+    width:
+        42px;
+
+    height:
+        42px;
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid var(--bordure);
+
+    border-radius:
+        10px;
+
+    color:
+        var(--texte);
+
+    background:
+        var(--fond-carte);
+
+    cursor:
+        pointer;
+
+    font-size:
+        1.05rem;
+
+    line-height:
+        1;
+
+    transition:
+        all var(--transition);
+
+}
+
+.theme-toggle:hover {
+
+    color:
+        var(--bleu);
+
+    border-color:
+        rgba(var(--bleu-rgb), 0.3);
+
+    background:
+        var(--bleu-clair);
+
+}
+
+
 .menu-mobile {
 
     display:
@@ -469,7 +570,7 @@ button {
         10px;
 
     background:
-        white;
+        var(--fond-carte);
 
     cursor:
         pointer;
@@ -492,7 +593,7 @@ button {
         4px auto;
 
     background:
-        var(--noir);
+        var(--texte);
 
 }
 
@@ -517,14 +618,6 @@ button {
 
     overflow:
         hidden;
-
-    background:
-        radial-gradient(
-            circle at 76% 45%,
-            #e9eeff 0%,
-            #f7f8fc 32%,
-            #ffffff 68%
-        );
 
 }
 
@@ -610,7 +703,7 @@ button {
         var(--bleu);
 
     box-shadow:
-        0 0 0 5px rgba(49, 87, 213, 0.1);
+        0 0 0 5px rgba(var(--bleu-rgb), 0.1);
 
 }
 
@@ -732,7 +825,7 @@ button {
         white;
 
     background:
-        var(--noir);
+        var(--bouton-fond);
 
     box-shadow:
         0 12px 25px rgba(0, 0, 0, 0.11);
@@ -752,7 +845,7 @@ button {
         translateY(-3px);
 
     box-shadow:
-        0 15px 30px rgba(49, 87, 213, 0.22);
+        0 15px 30px rgba(var(--bleu-rgb), 0.22);
 
 }
 
@@ -779,13 +872,13 @@ button {
 .bouton-secondaire {
 
     color:
-        var(--noir);
+        var(--texte);
 
     border:
         1px solid var(--bordure);
 
     background:
-        rgba(255,255,255,0.7);
+        var(--fond-carte);
 
 }
 
@@ -796,10 +889,10 @@ button {
         var(--bleu);
 
     border-color:
-        rgba(49,87,213,0.3);
+        rgba(var(--bleu-rgb),0.3);
 
     background:
-        var(--blanc);
+        var(--fond-carte);
 
     transform:
         translateY(-2px);
@@ -907,7 +1000,7 @@ button {
         absolute;
 
     width:
-        min(530px, 88%);
+        min(550px, 88%);
 
     aspect-ratio:
         1;
@@ -919,8 +1012,8 @@ button {
         var(--bleu-clair);
 
     box-shadow:
-        0 0 0 30px rgba(49,87,213,0.025),
-        0 0 0 60px rgba(49,87,213,0.012);
+        0 0 0 30px rgba(var(--bleu-rgb),0.025),
+        0 0 0 60px rgba(var(--bleu-rgb),0.012);
 
 }
 
@@ -1024,7 +1117,7 @@ button {
 .hero-label span {
 
     color:
-        #8ea5ff;
+        var(--bleu-clair-sombre);
 
     font-size:
         0.95rem;
@@ -1071,59 +1164,6 @@ button {
 
 }
 
-
-.hero-flèche {
-
-    position:
-        absolute;
-
-    left:
-        12px;
-
-    bottom:
-        62px;
-
-    width:
-        45px;
-
-    height:
-        45px;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    border:
-        1px solid var(--bordure);
-
-    border-radius:
-        50%;
-
-    color:
-        var(--gris);
-
-    animation:
-        heroFlèche 2s ease-in-out infinite;
-
-}
-
-
-@keyframes heroFlèche {
-
-    0%,100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(6px);
-    }
-
-}
 
 
 /* =========================================================
@@ -1215,7 +1255,7 @@ button {
         7px;
 
     color:
-        var(--noir);
+        var(--texte);
 
     font-size:
         0.87rem;
@@ -1263,7 +1303,7 @@ button {
 .categories {
 
     background:
-        var(--blanc);
+        var(--fond-page);
 
 }
 
@@ -1423,7 +1463,7 @@ button {
 .collections {
     padding-top: 60px;
     background:
-        var(--gris-clair);
+        var(--fond-alterne);
 
 }
 
@@ -1457,10 +1497,10 @@ button {
         30px;
 
     color:
-        #444;
+        var(--gris-fonce);
 
     background:
-        white;
+        var(--fond-carte);
 
     cursor:
         pointer;
@@ -1483,7 +1523,7 @@ button {
         var(--bleu);
 
     border-color:
-        rgba(49,87,213,0.35);
+        rgba(var(--bleu-rgb),0.35);
 
     background:
         var(--bleu-clair);
@@ -1497,10 +1537,10 @@ button {
         white;
 
     background:
-        var(--noir);
+        var(--bouton-fond);
 
     border-color:
-        var(--noir);
+        var(--bouton-fond);
 
 }
 
@@ -1533,7 +1573,7 @@ button {
     border-radius:
         var(--rayon);
 
-    background:#ffffff;
+    background: var(--fond-carte);
 
     transition:
         transform var(--transition),
@@ -1579,7 +1619,7 @@ button {
         hidden;
 
     background:
-        #f7f7f8;
+        var(--fond-alterne);
 
 }
 
@@ -1720,7 +1760,7 @@ button {
         white;
 
     background:
-        var(--noir);
+        var(--bouton-fond);
 
 }
 
@@ -1901,7 +1941,7 @@ button {
         white;
 
     background:
-        var(--noir);
+        var(--bouton-fond);
 
     text-decoration:
         none;
@@ -1934,7 +1974,7 @@ button {
 .avantages {
 
     background:
-        #fafbfc;
+        var(--fond-alterne);
 
     padding:
         100px 0;
@@ -2018,7 +2058,7 @@ button {
         30px 28px;
 
     background:
-        #e4e2e2;
+        var(--fond-carte);
 
     border-right:
         10px solid var(--bordure);
@@ -2045,7 +2085,7 @@ button {
 .avantage:hover {
 
     background:
-        #f4f8fc;
+        var(--bleu-clair);
 
     transform:
         translateY(-3px);
@@ -2224,7 +2264,7 @@ button {
 
 .a-propos {
     background:
-        var(--gris-clair);
+        var(--fond-alterne);
 
 }
 
@@ -2330,7 +2370,7 @@ button {
         rotate(-10deg);
 
     box-shadow:
-        0 15px 30px rgba(49,87,213,0.22);
+        0 15px 30px rgba(var(--bleu-rgb),0.22);
 
 }
 
@@ -2461,7 +2501,7 @@ button {
 .contact {
 
     background:
-        white;
+        var(--fond-page);
 
 }
 
@@ -2493,7 +2533,7 @@ button {
         var(--rayon);
 
     background:
-        var(--gris-clair);
+        var(--fond-alterne);
 
     overflow:
         hidden;
@@ -2527,7 +2567,7 @@ button {
         50%;
 
     border:
-        35px solid rgba(49,87,213,0.06);
+        35px solid rgba(var(--bleu-rgb),0.06);
 
     pointer-events:
         none;
@@ -2623,10 +2663,10 @@ button {
         12px;
 
     color:
-        var(--noir);
+        var(--texte);
 
     background:
-        white;
+        var(--fond-carte);
 
     text-decoration:
         none;
@@ -2640,7 +2680,7 @@ button {
 .contact-info:hover {
 
     border-color:
-        rgba(49,87,213,0.28);
+        rgba(var(--bleu-rgb),0.28);
 
     transform:
         translateX(4px);
@@ -2856,7 +2896,7 @@ button {
 .social-liens a:hover {
 
     color:
-        #8ea5ff;
+        var(--bleu-clair-sombre);
 
 }
 
@@ -3225,6 +3265,17 @@ button {
     }
 
 
+    .theme-toggle {
+
+        width:
+            39px;
+
+        height:
+            39px;
+
+    }
+
+
     .panier-action {
 
         width:
@@ -3396,22 +3447,6 @@ button {
 
     }
 
-
-    .hero-flèche {
-
-        left:
-            0;
-
-        bottom:
-            18px;
-
-        width:
-            40px;
-
-        height:
-            40px;
-
-    }
 
 
     .categories,
@@ -3613,7 +3648,7 @@ a:focus-visible,
 button:focus-visible {
 
     outline:
-        3px solid rgba(49,87,213,0.35);
+        3px solid rgba(var(--bleu-rgb),0.35);
 
     outline-offset:
         3px;
@@ -3649,13 +3684,8 @@ button:focus-visible {
 }
 
 
-
-
-
-
 /* =========================================================
    KTN SHOES — AJOUTS CSS POUR LA PAGE CATALOGUE
-   À ajouter à la fin de css/style.css
 ========================================================= */
 
 
@@ -3690,7 +3720,7 @@ button:focus-visible {
 }
 
 .catalogue-hero .sur-titre {
-    color: #aabaff;
+    color: var(--bleu-clair-sombre);
     margin-bottom: 13px;
 }
 
@@ -3705,7 +3735,7 @@ button:focus-visible {
 }
 
 .catalogue-hero h1 strong {
-    color: #aabaff;
+    color: var(--bleu-clair-sombre);
 }
 
 .catalogue-hero p {
@@ -3723,7 +3753,7 @@ button:focus-visible {
 
 .catalogue {
     padding: 85px 0 110px;
-    background: var(--gris-clair);
+    background: var(--fond-alterne);
 }
 
 .catalogue-entete {
@@ -3771,7 +3801,7 @@ button:focus-visible {
 }
 
 .catalogue-editorial .sur-titre {
-    color: #aabaff;
+    color: var(--bleu-clair-sombre);
     margin-bottom: 12px;
 }
 
@@ -3822,6 +3852,11 @@ button:focus-visible {
         min-height: 290px;
     }
 
+    .grille-produits2 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
 }
 
 
@@ -3851,6 +3886,11 @@ button:focus-visible {
 
     .catalogue-editorial h2 {
         font-size: 2.2rem;
+    }
+
+    .grille-produits2 {
+        grid-template-columns: 1fr;
+        gap: 17px;
     }
 
 }
@@ -3896,7 +3936,7 @@ button:focus-visible {
 
     height: 570px;
 
-    background: #f5f6f8;
+    background: var(--fond-alterne);
 
     border-radius: 18px;
 
@@ -3920,835 +3960,4 @@ button:focus-visible {
 
 .product-image-container:hover .product-main-image {
     transform: scale(1.03);
-}
-
-
-
-
-
-
-
-
-
-
-
-/* =========================================================
-   KTN SHOES — AJOUTS CSS
-   Page produit détaillée, page panier, toast, menu mobile.
-   À lier après style.css.
-========================================================= */
-
-
-/* =========================================================
-   1. MENU MOBILE — ÉTAT OUVERT
-========================================================= */
-
-@media (max-width: 850px) {
-
-    .navigation {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-
-        display: none;
-
-        flex-direction: column;
-        align-items: stretch;
-
-        padding: 10px 0 18px;
-
-        background: var(--blanc);
-        border-bottom: 1px solid var(--bordure);
-        box-shadow: var(--ombre-legere);
-    }
-
-    .navigation.navigation-ouverte {
-        display: flex;
-    }
-
-    .navigation ul {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0;
-    }
-
-    .navigation ul li {
-        border-bottom: 1px solid var(--gris-clair);
-    }
-
-    .navigation a {
-        display: block;
-        padding: 14px min(24px, 4%);
-    }
-
-    .navigation a::after {
-        display: none;
-    }
-
-}
-
-
-/* =========================================================
-   2. TOAST DE CONFIRMATION
-========================================================= */
-
-.toast-ktn {
-    position: fixed;
-    left: 50%;
-    bottom: 28px;
-    z-index: 2000;
-
-    padding: 14px 22px;
-
-    border-radius: 10px;
-
-    color: white;
-    background: var(--noir);
-
-    font-size: 0.86rem;
-    font-weight: 700;
-
-    box-shadow: var(--ombre-hover);
-
-    opacity: 0;
-    transform: translate(-50%, 12px);
-    pointer-events: none;
-
-    transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.toast-ktn.toast-visible {
-    opacity: 1;
-    transform: translate(-50%, 0);
-}
-
-
-/* =========================================================
-   3. FIL D'ARIANE
-========================================================= */
-
-.fil-ariane-produit {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    margin-bottom: 26px;
-
-    color: var(--gris);
-    font-size: 0.8rem;
-}
-
-.fil-ariane-produit a {
-    color: var(--gris);
-    text-decoration: none;
-    transition: color var(--transition);
-}
-
-.fil-ariane-produit a:hover {
-    color: var(--bleu);
-}
-
-.fil-ariane-produit span:last-child {
-    color: var(--noir);
-    font-weight: 600;
-}
-
-
-/* =========================================================
-   4. PAGE PRODUIT — GALERIE
-========================================================= */
-
-.product-image-container {
-    position: relative;
-}
-
-.product-badge {
-    position: absolute;
-    z-index: 3;
-    top: 18px;
-    left: 18px;
-
-    display: none;
-
-    padding: 7px 12px;
-    border-radius: 7px;
-
-    color: white;
-    background: var(--bleu);
-
-    font-size: 0.68rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.product-thumbnails {
-    display: flex;
-    gap: 12px;
-    margin-top: 16px;
-}
-
-.product-thumbnail {
-    width: 76px;
-    height: 76px;
-
-    padding: 6px;
-
-    border: 2px solid var(--bordure);
-    border-radius: 10px;
-    background: #f5f6f8;
-
-    cursor: pointer;
-
-    transition: border-color var(--transition);
-}
-
-.product-thumbnail img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.product-thumbnail.actif,
-.product-thumbnail:hover {
-    border-color: var(--bleu);
-}
-
-
-/* =========================================================
-   5. PAGE PRODUIT — INFOS
-========================================================= */
-
-.product-infos {
-    max-width: 480px;
-}
-
-.product-categorie {
-    display: block;
-    margin-bottom: 10px;
-
-    color: var(--bleu);
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1.6px;
-}
-
-.product-titre {
-    margin-bottom: 12px;
-
-    font-size: clamp(2rem, 3.4vw, 2.7rem);
-    line-height: 1.05;
-    letter-spacing: -1.5px;
-}
-
-.product-note {
-    margin-bottom: 16px;
-
-    color: #f1ad00;
-    font-size: 0.95rem;
-    letter-spacing: 2px;
-}
-
-.product-prix {
-    display: block;
-    margin-bottom: 22px;
-
-    font-size: 1.7rem;
-    font-weight: 850;
-}
-
-.product-description {
-    margin-bottom: 28px;
-
-    color: var(--gris-fonce);
-    font-size: 0.96rem;
-    line-height: 1.75;
-}
-
-
-/* -- Favoris (page produit) -- */
-
-.product-favori {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-
-    margin-bottom: 30px;
-    padding: 10px 16px;
-
-    border: 1px solid var(--bordure);
-    border-radius: 30px;
-    background: white;
-
-    color: var(--noir);
-    font-size: 0.82rem;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: all var(--transition);
-}
-
-.product-favori:hover {
-    border-color: rgba(49, 87, 213, 0.3);
-    color: var(--bleu);
-    background: var(--bleu-clair);
-}
-
-.product-favori.selectionne {
-    color: var(--bleu);
-    border-color: rgba(49, 87, 213, 0.35);
-    background: var(--bleu-clair);
-}
-
-
-/* -- Sélecteur de taille -- */
-
-.product-selecteur {
-    margin-bottom: 26px;
-}
-
-.product-selecteur-titre {
-    display: block;
-    margin-bottom: 12px;
-
-    font-size: 0.82rem;
-    font-weight: 750;
-}
-
-.product-tailles {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.taille-option {
-    min-width: 48px;
-    height: 48px;
-    padding: 0 12px;
-
-    border: 1px solid var(--bordure);
-    border-radius: 10px;
-    background: white;
-
-    color: var(--noir);
-    font-size: 0.86rem;
-    font-weight: 700;
-
-    cursor: pointer;
-
-    transition: all var(--transition);
-}
-
-.taille-option:hover {
-    border-color: rgba(49, 87, 213, 0.35);
-}
-
-.taille-option.actif {
-    color: white;
-    background: var(--noir);
-    border-color: var(--noir);
-}
-
-
-/* -- Sélecteur de quantité + bouton panier -- */
-
-.product-actions {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-
-    margin-bottom: 32px;
-    flex-wrap: wrap;
-}
-
-.selecteur-quantite {
-    display: flex;
-    align-items: center;
-
-    border: 1px solid var(--bordure);
-    border-radius: 10px;
-
-    overflow: hidden;
-}
-
-.selecteur-quantite button {
-    width: 44px;
-    height: 52px;
-
-    border: none;
-    background: white;
-
-    font-size: 1.1rem;
-
-    cursor: pointer;
-
-    transition: background var(--transition);
-}
-
-.selecteur-quantite button:hover {
-    background: var(--gris-clair);
-}
-
-.quantite-valeur {
-    min-width: 40px;
-
-    text-align: center;
-
-    font-size: 0.95rem;
-    font-weight: 700;
-}
-
-.product-ajouter-panier {
-    flex: 1;
-    min-width: 200px;
-    min-height: 52px;
-
-    border: none;
-    border-radius: 9px;
-
-    color: white;
-    background: var(--noir);
-
-    font-size: 0.9rem;
-    font-weight: 750;
-
-    cursor: pointer;
-
-    transition: all var(--transition);
-}
-
-.product-ajouter-panier:hover {
-    background: var(--bleu);
-    transform: translateY(-2px);
-    box-shadow: 0 15px 30px rgba(49, 87, 213, 0.22);
-}
-
-
-/* -- Détails produit -- */
-
-.product-details {
-    padding-top: 24px;
-    border-top: 1px solid var(--bordure);
-}
-
-.product-details-titre {
-    margin-bottom: 14px;
-
-    font-size: 0.95rem;
-    font-weight: 800;
-}
-
-.product-details-liste {
-    display: grid;
-    gap: 9px;
-
-    padding-left: 20px;
-
-    color: var(--gris-fonce);
-    font-size: 0.87rem;
-    line-height: 1.6;
-}
-
-
-/* -- Produit introuvable -- */
-
-.produit-introuvable {
-    max-width: 480px;
-    margin: 60px auto;
-
-    text-align: center;
-}
-
-.produit-introuvable h2 {
-    margin-bottom: 12px;
-    font-size: 1.8rem;
-}
-
-.produit-introuvable p {
-    margin-bottom: 24px;
-    color: var(--gris);
-}
-
-
-/* =========================================================
-   6. PRODUITS SIMILAIRES
-========================================================= */
-
-.produits-similaires {
-    padding: 90px 0 100px;
-    background: var(--gris-clair);
-}
-
-.produits-similaires-grille {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
-
-
-
-
-/* =========================================================
-   7. PAGE PANIER
-========================================================= */
-
-.panier-page {
-    padding: 60px 0 110px;
-    background: var(--gris-tres-clair);
-}
-
-.panier-entete {
-    margin-bottom: 40px;
-}
-
-.panier-entete h1 {
-    font-size: clamp(2rem, 3.4vw, 2.8rem);
-    letter-spacing: -1.5px;
-}
-
-.panier-contenu {
-    display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 40px;
-    align-items: start;
-}
-
-.panier-liste {
-    display: grid;
-    gap: 16px;
-}
-
-
-/* -- Une ligne du panier -- */
-
-.ligne-panier {
-    display: grid;
-    grid-template-columns: 96px 1fr auto auto;
-    align-items: center;
-    gap: 20px;
-
-    padding: 18px;
-
-    border: 1px solid var(--bordure);
-    border-radius: var(--rayon-petit);
-    background: white;
-}
-
-.ligne-panier-image {
-    width: 96px;
-    height: 96px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 10px;
-    background: #f5f6f8;
-
-    overflow: hidden;
-}
-
-.ligne-panier-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.ligne-panier-infos {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.ligne-panier-categorie {
-    color: var(--gris);
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.ligne-panier-nom {
-    color: var(--noir);
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: 750;
-}
-
-.ligne-panier-nom:hover {
-    color: var(--bleu);
-}
-
-.ligne-panier-taille {
-    color: var(--gris);
-    font-size: 0.8rem;
-}
-
-.ligne-panier-supprimer {
-    align-self: flex-start;
-    margin-top: 6px;
-
-    border: none;
-    background: none;
-
-    color: var(--gris);
-    font-size: 0.76rem;
-    font-weight: 700;
-    text-decoration: underline;
-
-    cursor: pointer;
-}
-
-.ligne-panier-supprimer:hover {
-    color: #d33;
-}
-
-.ligne-panier-quantite {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    border: 1px solid var(--bordure);
-    border-radius: 8px;
-    padding: 4px;
-}
-
-.ligne-panier-quantite button {
-    width: 28px;
-    height: 28px;
-
-    border: none;
-    border-radius: 6px;
-    background: var(--gris-clair);
-
-    font-size: 0.95rem;
-
-    cursor: pointer;
-
-    transition: background var(--transition);
-}
-
-.ligne-panier-quantite button:hover {
-    background: var(--bleu-clair);
-    color: var(--bleu);
-}
-
-.ligne-quantite-valeur {
-    min-width: 18px;
-    text-align: center;
-
-    font-size: 0.85rem;
-    font-weight: 700;
-}
-
-.ligne-panier-prix {
-    font-size: 1rem;
-    font-weight: 850;
-    white-space: nowrap;
-}
-
-
-/* -- Résumé de commande -- */
-
-.panier-resume {
-    padding: 28px;
-
-    border: 1px solid var(--bordure);
-    border-radius: var(--rayon);
-    background: white;
-
-    position: sticky;
-    top: 100px;
-}
-
-.panier-resume h2 {
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-}
-
-.resume-ligne {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    margin-bottom: 12px;
-
-    color: var(--gris-fonce);
-    font-size: 0.88rem;
-}
-
-.resume-ligne.resume-ligne-total {
-    margin-top: 16px;
-    padding-top: 16px;
-
-    border-top: 1px solid var(--bordure);
-
-    color: var(--noir);
-    font-size: 1.05rem;
-    font-weight: 800;
-}
-
-.panier-valider {
-    width: 100%;
-    min-height: 52px;
-    margin-top: 22px;
-
-    border: none;
-    border-radius: 9px;
-
-    color: white;
-    background: var(--noir);
-
-    font-size: 0.9rem;
-    font-weight: 750;
-
-    cursor: pointer;
-
-    transition: all var(--transition);
-}
-
-.panier-valider:hover {
-    background: var(--bleu);
-    transform: translateY(-2px);
-    box-shadow: 0 15px 30px rgba(49, 87, 213, 0.22);
-}
-
-.panier-continuer {
-    display: block;
-    margin-top: 14px;
-
-    text-align: center;
-
-    color: var(--gris);
-    font-size: 0.8rem;
-    text-decoration: none;
-}
-
-.panier-continuer:hover {
-    color: var(--bleu);
-}
-
-
-/* -- Panier vide -- */
-
-.panier-vide {
-    display: none;
-
-    max-width: 420px;
-    margin: 40px auto;
-
-    text-align: center;
-}
-
-.panier-vide-icone {
-    margin: 0 auto 22px;
-
-    width: 74px;
-    height: 74px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-    background: var(--bleu-clair);
-
-    color: var(--bleu);
-    font-size: 1.8rem;
-}
-
-.panier-vide h2 {
-    margin-bottom: 10px;
-    font-size: 1.5rem;
-}
-
-.panier-vide p {
-    margin-bottom: 26px;
-    color: var(--gris);
-}
-
-
-/* =========================================================
-   8. RESPONSIVE — PRODUIT / PANIER
-========================================================= */
-
-@media (max-width: 900px) {
-
-    .product-container {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
-    .product-image-container {
-        height: 420px;
-    }
-
-    .product-infos {
-        max-width: none;
-    }
-
-    .produits-similaires-grille {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .panier-contenu {
-        grid-template-columns: 1fr;
-    }
-
-    .panier-resume {
-        position: static;
-    }
-
-}
-
-@media (max-width: 600px) {
-
-    .product-image-container {
-        height: 320px;
-    }
-
-    .product-actions {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .selecteur-quantite {
-        justify-content: center;
-    }
-
-    .produits-similaires-grille {
-        grid-template-columns: 1fr;
-    }
-
-    .ligne-panier {
-        grid-template-columns: 72px 1fr;
-        grid-template-areas:
-            "image infos"
-            "image quantite"
-            "image prix";
-        row-gap: 10px;
-    }
-
-    .ligne-panier-image {
-        grid-area: image;
-        width: 72px;
-        height: 72px;
-    }
-
-    .ligne-panier-infos {
-        grid-area: infos;
-    }
-
-    .ligne-panier-quantite {
-        grid-area: quantite;
-        justify-self: start;
-    }
-
-    .ligne-panier-prix {
-        grid-area: prix;
-        justify-self: start;
-    }
-
 }

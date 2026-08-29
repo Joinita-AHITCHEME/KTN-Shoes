@@ -590,7 +590,54 @@ function afficherPanier() {
 
 
 /* =========================================================
-   10. INITIALISATION GLOBALE
+   11. BASCULE THÈME (clair / sombre)
+   L'attribut data-theme="sombre" est déjà posé au chargement
+   par le petit script anti-flash dans le <head> de chaque
+   page. Ici, on gère uniquement le clic sur le bouton.
+========================================================= */
+
+const CLE_THEME = "ktn_theme";
+
+function themeActuel() {
+    return document.documentElement.getAttribute("data-theme") === "sombre"
+        ? "sombre"
+        : "clair";
+}
+
+function appliquerTheme(theme) {
+    if (theme === "sombre") {
+        document.documentElement.setAttribute("data-theme", "sombre");
+    } else {
+        document.documentElement.removeAttribute("data-theme");
+    }
+}
+
+function majIconeTheme(bouton) {
+    const sombre = themeActuel() === "sombre";
+    bouton.textContent = sombre ? "☀" : "☾";
+    bouton.setAttribute(
+        "aria-label",
+        sombre ? "Activer le mode clair" : "Activer le mode sombre"
+    );
+}
+
+function initBasculeTheme() {
+    const bouton = document.querySelector(".theme-toggle");
+    if (!bouton) return;
+
+    majIconeTheme(bouton);
+
+    bouton.addEventListener("click", () => {
+        const nouveauTheme = themeActuel() === "sombre" ? "clair" : "sombre";
+        appliquerTheme(nouveauTheme);
+        localStorage.setItem(CLE_THEME, nouveauTheme);
+        majIconeTheme(bouton);
+    });
+}
+
+
+/* =========================================================
+   12. INITIALISATION GLOBALE
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -601,4 +648,5 @@ document.addEventListener("DOMContentLoaded", () => {
     initAjoutRapidePanier();
     initPageProduit();
     initPagePanier();
+    initBasculeTheme();
 });

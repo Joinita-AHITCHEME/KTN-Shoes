@@ -2,6 +2,19 @@
 <html lang="fr">
 
 <head>
+    <script>
+        (function () {
+            var theme = localStorage.getItem("ktn_theme");
+            if (!theme) {
+                theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "sombre"
+                    : "clair";
+            }
+            if (theme === "sombre") {
+                document.documentElement.setAttribute("data-theme", "sombre");
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
 
     <meta
@@ -116,6 +129,14 @@
                 </span>
 
             </a>
+
+            <button
+                class="theme-toggle"
+                type="button"
+                aria-label="Activer le mode sombre"
+            >
+                ☾
+            </button>
 
             <button
                 class="menu-mobile"
@@ -245,6 +266,7 @@
 
             <div class="hero-cercle"></div>
 
+
             <div class="hero-label">
 
                 <span>
@@ -269,10 +291,6 @@
                 src="images/ktn-runner1.jpg"
                 alt="KTN Runner"
             >
-
-            <div class="hero-flèche">
-                ↓
-            </div>
 
         </div>
 
