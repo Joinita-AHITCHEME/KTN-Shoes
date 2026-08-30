@@ -1,8 +1,4 @@
-/* =========================================================
-   KTN SHOES — BASE DE DONNÉES PRODUITS
-   Toutes les pages (accueil, catalogue, produit, panier)
-   lisent ce même tableau : une seule source de vérité.
-========================================================= */
+/* BASE DE DONNÉES PRODUITS */
 
 const PRODUITS = [
 
@@ -309,9 +305,7 @@ const PRODUITS = [
 ];
 
 
-/* =========================================================
-   FONCTIONS UTILITAIRES PRODUITS
-========================================================= */
+/* FONCTIONS UTILITAIRES PRODUITS */
 
 // Retourne un produit à partir de son id (id venant de l'URL = texte, d'où le Number())
 function obtenirProduitParId(id) {

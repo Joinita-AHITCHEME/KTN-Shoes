@@ -1,18 +1,11 @@
-/* =========================================================
-   KTN SHOES — SCRIPT PRINCIPAL
-   Panier (localStorage), favoris, filtres, menu mobile,
-   rendu dynamique des pages produit et panier.
-========================================================= */
+/* SCRIPT PRINCIPAL */
 
 const CLE_PANIER = "ktn_panier";
 const CLE_FAVORIS = "ktn_favoris";
 
 
-/* =========================================================
-   1. STOCKAGE — PANIER
-========================================================= */
+/* 1. STOCKAGE — PANIER */
 
-// Le panier est un tableau d'objets : { id, taille, quantite }
 function lirePanier() {
     try {
         const donnees = localStorage.getItem(CLE_PANIER);
@@ -76,7 +69,6 @@ function nombreArticlesPanier() {
     return lirePanier().reduce((total, item) => total + item.quantite, 0);
 }
 
-// Met à jour le petit chiffre bleu sur l'icône panier, sur TOUTES les pages
 function mettreAJourPastilleCartier() {
     document
         .querySelectorAll(".pastille-panier")
@@ -86,9 +78,7 @@ function mettreAJourPastilleCartier() {
 }
 
 
-/* =========================================================
-   2. STOCKAGE — FAVORIS
-========================================================= */
+/* 2. STOCKAGE — FAVORIS */
 
 function lireFavoris() {
     try {
@@ -122,9 +112,7 @@ function basculerFavori(id) {
 }
 
 
-/* =========================================================
-   3. MENU MOBILE
-========================================================= */
+/* 3. MENU MOBILE */
 
 function initMenuMobile() {
     const bouton = document.querySelector(".menu-mobile");
@@ -139,9 +127,7 @@ function initMenuMobile() {
 }
 
 
-/* =========================================================
-   4. BOUTONS FAVORIS (cartes produit)
-========================================================= */
+/* 4. BOUTONS FAVORIS (cartes produit) */
 
 function initBoutonsFavoris() {
     document.querySelectorAll(".favori-produit[data-id]").forEach(bouton => {
@@ -163,9 +149,7 @@ function initBoutonsFavoris() {
 }
 
 
-/* =========================================================
-   5. FILTRES CATALOGUE
-========================================================= */
+/* 5. FILTRES CATALOGUE */
 
 function initFiltres() {
     const boutonsFiltre = document.querySelectorAll(".filtre[data-filtre]");
@@ -192,11 +176,6 @@ function initFiltres() {
 }
 
 
-/* =========================================================
-   6. AJOUT AU PANIER DEPUIS UNE CARTE PRODUIT
-   (accueil / catalogue : ajoute la taille par défaut)
-========================================================= */
-
 function initAjoutRapidePanier() {
     document.querySelectorAll(".ajouter-produit[data-id]").forEach(bouton => {
         bouton.addEventListener("click", evenement => {
@@ -215,9 +194,7 @@ function initAjoutRapidePanier() {
 }
 
 
-/* =========================================================
-   7. PETITE NOTIFICATION "TOAST"
-========================================================= */
+/* PETITE NOTIFICATION "TOAST" */
 
 function afficherToast(message) {
     let toast = document.querySelector(".toast-ktn");
@@ -238,9 +215,7 @@ function afficherToast(message) {
 }
 
 
-/* =========================================================
-   8. PAGE PRODUIT — RENDU DYNAMIQUE
-========================================================= */
+/* 8. PAGE PRODUIT — RENDU DYNAMIQUE */
 
 function initPageProduit() {
     const conteneur = document.querySelector("[data-page='produit']");
@@ -277,7 +252,6 @@ function initPageProduit() {
         `;
     }
 
-    // -- Image principale + miniatures
     const imagePrincipale = document.querySelector(".product-main-image");
     const miniaturesConteneur = document.querySelector(".product-thumbnails");
 
@@ -312,7 +286,6 @@ function initPageProduit() {
         });
     }
 
-    // -- Badge favoris de la page produit
     const boutonFavori = document.querySelector(".product-favori");
     if (boutonFavori) {
         boutonFavori.dataset.id = produit.id;
@@ -329,7 +302,6 @@ function initPageProduit() {
         });
     }
 
-    // -- Infos texte
     remplirTexte(".product-categorie", `${produit.categorieLabel} · ${produit.type}`);
     remplirTexte(".product-titre", produit.nom);
     remplirTexte(".product-prix", formaterPrix(produit.prix));
@@ -348,7 +320,6 @@ function initPageProduit() {
         }
     }
 
-    // -- Liste de détails
     const listeDetails = document.querySelector(".product-details-liste");
     if (listeDetails) {
         listeDetails.innerHTML = produit.details
@@ -356,7 +327,6 @@ function initPageProduit() {
             .join("");
     }
 
-    // -- Sélecteur de taille
     const selecteurTailles = document.querySelector(".product-tailles");
     let tailleChoisie = produit.tailles[0];
 
@@ -385,7 +355,6 @@ function initPageProduit() {
         });
     }
 
-    // -- Sélecteur de quantité
     const champQuantite = document.querySelector(".quantite-valeur");
     const boutonMoins = document.querySelector(".quantite-moins");
     const boutonPlus = document.querySelector(".quantite-plus");
@@ -409,7 +378,6 @@ function initPageProduit() {
         });
     }
 
-    // -- Bouton "Ajouter au panier"
     const boutonAjouter = document.querySelector(".product-ajouter-panier");
     if (boutonAjouter) {
         boutonAjouter.addEventListener("click", () => {
@@ -418,7 +386,6 @@ function initPageProduit() {
         });
     }
 
-    // -- Produits similaires
     const conteneurSimilaires = document.querySelector(".produits-similaires-grille");
     if (conteneurSimilaires) {
         const similaires = produitsSimilaires(produit.categorie, produit.id, 4);
@@ -433,7 +400,6 @@ function remplirTexte(selecteur, texte) {
     if (element) element.textContent = texte;
 }
 
-// Génère le HTML d'une carte produit (réutilisé pour "produits similaires")
 function carteProduitHTML(produit) {
     return `
         <article class="carte-produit" data-categorie="${produit.categorie}">
@@ -471,9 +437,7 @@ function carteProduitHTML(produit) {
 }
 
 
-/* =========================================================
-   9. PAGE PANIER — RENDU DYNAMIQUE
-========================================================= */
+/* 9. PAGE PANIER — RENDU DYNAMIQUE */
 
 const FRAIS_LIVRAISON = 1500;
 
@@ -488,7 +452,6 @@ function initPagePanier() {
         boutonValider.addEventListener("click", () => {
             if (lirePanier().length === 0) return;
 
-            // Pas de backend : on simule la validation de commande.
             afficherToast("Commande validée — merci pour votre achat !");
             localStorage.removeItem(CLE_PANIER);
             afficherPanier();
@@ -555,7 +518,6 @@ function afficherPanier() {
         `;
     }).join("");
 
-    // -- Écouteurs sur chaque ligne
     listeConteneur.querySelectorAll(".ligne-panier").forEach(ligneElement => {
         const id = Number(ligneElement.dataset.id);
         const taille = Number(ligneElement.dataset.taille);
@@ -578,7 +540,6 @@ function afficherPanier() {
         });
     });
 
-    // -- Résumé (sous-total, livraison, total)
     const elementSousTotal = document.querySelector(".resume-sous-total");
     const elementLivraison = document.querySelector(".resume-livraison");
     const elementTotal = document.querySelector(".resume-total");
@@ -589,12 +550,7 @@ function afficherPanier() {
 }
 
 
-/* =========================================================
-   11. BASCULE THÈME (clair / sombre)
-   L'attribut data-theme="sombre" est déjà posé au chargement
-   par le petit script anti-flash dans le <head> de chaque
-   page. Ici, on gère uniquement le clic sur le bouton.
-========================================================= */
+/* 11. BASCULE THÈME (clair / sombre) */
 
 const CLE_THEME = "ktn_theme";
 
@@ -636,9 +592,7 @@ function initBasculeTheme() {
 }
 
 
-/* =========================================================
-   12. INITIALISATION GLOBALE
-========================================================= */
+/* 12. INITIALISATION GLOBALE */
 
 document.addEventListener("DOMContentLoaded", () => {
     mettreAJourPastilleCartier();
