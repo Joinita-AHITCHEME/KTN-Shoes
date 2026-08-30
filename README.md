@@ -25,8 +25,7 @@ KTN-Shoes/
 ├── produit.html              # Page produit dynamique (lit ?id= dans l'URL)
 ├── panier.html               # Page panier
 ├── css/
-│   ├── style.css              # Styles principaux (variables, layout, composants)
-│   └── ajouts.css             # Styles additionnels (page produit, panier, toast)
+│   ├── style.css              # Styles (variables, layout, composants etc...)
 ├── js/
 │   ├── produits.js            # Base de données des 12 produits (source de vérité unique)
 │   └── script.js              # Logique : panier, favoris, filtres, thème, rendu dynamique
