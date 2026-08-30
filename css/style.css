@@ -50,6 +50,7 @@
 
 }
 
+
 /* MODE SOMBRE */
 
 [data-theme="sombre"] {
@@ -131,7 +132,7 @@ button {
 }
 
 
-/* 3. CONTENEUR */
+/* . CONTENEUR */
 
 .conteneur {
 
@@ -218,6 +219,7 @@ button {
         3px;
 
 }
+
 
 .navigation {
 
@@ -330,6 +332,8 @@ button {
 
 }
 
+
+/* PANIER */
 
 .panier-action {
 
@@ -458,6 +462,10 @@ button {
 
 }
 
+
+/* MENU MOBILE */
+
+/* BASCULE THÈME (clair / sombre) */
 
 .theme-toggle {
 
@@ -956,7 +964,7 @@ button {
         absolute;
 
     width:
-        min(550px, 88%);
+        min(530px, 88%);
 
     aspect-ratio:
         1;
@@ -1121,6 +1129,7 @@ button {
 }
 
 
+
 /* 6. SECTIONS GÉNÉRALES */
 
 .categories,
@@ -1257,6 +1266,7 @@ button {
         var(--fond-page);
 
 }
+
 
 .grille-categories {
 
@@ -3129,7 +3139,6 @@ button {
 
     }
 
-
 }
 
 
@@ -3547,9 +3556,6 @@ button {
 
 }
 
-
-/* 16. ACCESSIBILITÉ / FOCUS */
-
 a:focus-visible,
 button:focus-visible {
 
@@ -3561,8 +3567,6 @@ button:focus-visible {
 
 }
 
-
-/* 17. RÉDUCTION DES ANIMATIONS */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -3589,7 +3593,6 @@ button:focus-visible {
 
 
 /* AJOUTS CSS POUR LA PAGE CATALOGUE */
-
 
 .catalogue-hero {
     position: relative;
@@ -3656,6 +3659,7 @@ button:focus-visible {
 }
 
 
+
 .catalogue-editorial {
     grid-column: 1 / -1;
 
@@ -3718,12 +3722,15 @@ button:focus-visible {
 }
 
 
+
 .favori-produit.selectionne {
     color: white;
     background: var(--bleu);
     border-color: var(--bleu);
 }
 
+
+/* RESPONSIVE */
 
 @media (max-width: 850px) {
 
@@ -3780,7 +3787,6 @@ button:focus-visible {
 
 
 
-
 /* PAGE PRODUIT */
 
 .product-page {
@@ -3788,10 +3794,10 @@ button:focus-visible {
     background-color: var(--gris-tres-clair);
 }
 
-.product-container {
-    width: min(1180px, 90%);
 
-    margin: 0 auto;
+
+.product-container {
+    width: 100%;
 
     display: grid;
 
@@ -3834,6 +3840,7 @@ button:focus-visible {
 .product-image-container:hover .product-main-image {
     transform: scale(1.03);
 }
+
 
 
 /* 1. MENU MOBILE — ÉTAT OUVERT */
@@ -3917,6 +3924,8 @@ button:focus-visible {
 }
 
 
+/* 3. FIL D'ARIANE */
+
 .fil-ariane-produit {
     display: flex;
     align-items: center;
@@ -3943,6 +3952,8 @@ button:focus-visible {
     font-weight: 600;
 }
 
+
+/* 4. PAGE PRODUIT — GALERIE */
 
 .product-image-container {
     position: relative;
@@ -4000,6 +4011,8 @@ button:focus-visible {
     border-color: var(--bleu);
 }
 
+
+/* 5. PAGE PRODUIT — INFOS */
 
 .product-infos {
     max-width: 480px;
@@ -4203,7 +4216,6 @@ button:focus-visible {
 }
 
 
-
 .product-details {
     padding-top: 24px;
     border-top: 1px solid var(--bordure);
@@ -4287,7 +4299,6 @@ button:focus-visible {
     display: grid;
     gap: 16px;
 }
-
 
 
 .ligne-panier {
@@ -4495,7 +4506,6 @@ button:focus-visible {
 }
 
 
-
 .panier-vide {
     display: none;
 
@@ -4530,4 +4540,84 @@ button:focus-visible {
 .panier-vide p {
     margin-bottom: 26px;
     color: var(--gris);
+}
+
+
+@media (max-width: 900px) {
+
+    .product-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .product-image-container {
+        height: 420px;
+    }
+
+    .product-infos {
+        max-width: none;
+    }
+
+    .produits-similaires-grille {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .panier-contenu {
+        grid-template-columns: 1fr;
+    }
+
+    .panier-resume {
+        position: static;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .product-image-container {
+        height: 320px;
+    }
+
+    .product-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .selecteur-quantite {
+        justify-content: center;
+    }
+
+    .produits-similaires-grille {
+        grid-template-columns: 1fr;
+    }
+
+    .ligne-panier {
+        grid-template-columns: 72px 1fr;
+        grid-template-areas:
+            "image infos"
+            "image quantite"
+            "image prix";
+        row-gap: 10px;
+    }
+
+    .ligne-panier-image {
+        grid-area: image;
+        width: 72px;
+        height: 72px;
+    }
+
+    .ligne-panier-infos {
+        grid-area: infos;
+    }
+
+    .ligne-panier-quantite {
+        grid-area: quantite;
+        justify-self: start;
+    }
+
+    .ligne-panier-prix {
+        grid-area: prix;
+        justify-self: start;
+    }
+
 }
