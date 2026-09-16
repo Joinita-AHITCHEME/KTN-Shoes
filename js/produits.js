@@ -14,8 +14,8 @@ const PRODUITS = [
         image: "images/ktn-runner1.jpg",
         images: [
             "images/ktn-runner1.jpg",
-            "images/ktn-runner1.jpg",
-            "images/ktn-runner1.jpg"
+            "images/ktn-runner3.jpg",
+            "images/men_shoes1.jpg"
         ],
         tailles: [40, 41, 42, 43, 44, 45],
         description: "La KTN Runner est notre modèle signature : une sneaker de tous les jours pensée pour le confort urbain. Semelle légère à absorption de choc, tige respirante et accroche fiable sur tous les terrains de la ville.",
@@ -39,8 +39,8 @@ const PRODUITS = [
         image: "images/ktn-classic.jpg",
         images: [
             "images/ktn-classic.jpg",
-            "images/ktn-classic.jpg",
-            "images/ktn-classic.jpg"
+            "images/for_men3.jpg",
+            "images/men_shoes3.jpg"
         ],
         tailles: [39, 40, 41, 42, 43, 44],
         description: "Un intemporel revisité. La KTN Classic reprend les codes de la sneaker basse traditionnelle avec une finition premium et une palette sobre qui s'accorde à toutes les tenues.",
@@ -64,8 +64,8 @@ const PRODUITS = [
         image: "images/ktn-sandale2.png",
         images: [
             "images/ktn-sandale2.png",
-            "images/ktn-sandale2.png",
-            "images/ktn-sandale2.png"
+            "images/ktn-sandale3.png",
+            "images/ktn-summer1.jpg"
         ],
         tailles: [36, 37, 38, 39, 40],
         description: "Légère et aérée, la KTN Sandale accompagne les journées chaudes avec des brides ajustables et une semelle souple qui épouse la démarche sans jamais glisser.",
@@ -89,8 +89,8 @@ const PRODUITS = [
         image: "images/ktn-urban.jpg",
         images: [
             "images/ktn-urban.jpg",
-            "images/ktn-urban.jpg",
-            "images/ktn-urban.jpg"
+            "images/ktn-urban3.jpg",
+            "images/ktn-urban5.jpg"
         ],
         tailles: [36, 37, 38, 39, 40, 41],
         description: "La KTN Court associe une silhouette sport-chic à un amorti confortable, pensée pour suivre le rythme de vos journées les plus actives.",
@@ -114,8 +114,8 @@ const PRODUITS = [
         image: "images/ktn-junior4.jpg",
         images: [
             "images/ktn-junior4.jpg",
-            "images/ktn-junior4.jpg",
-            "images/ktn-junior4.jpg"
+            "images/Kids Flex1.jpg",
+            "images/ktn-junior01.jpg"
         ],
         tailles: [28, 29, 30, 31, 32, 33],
         description: "Une version miniature de nos sneakers phares, taillée pour les petits pieds pleins d'énergie. Fermeture simple et matière résistante pour tenir toute la journée.",
@@ -139,8 +139,8 @@ const PRODUITS = [
         image: "images/ktn-loafer3.jpg",
         images: [
             "images/ktn-loafer3.jpg",
-            "images/ktn-loafer3.jpg",
-            "images/ktn-loafer3.jpg"
+            "images/ktn-loafer2.jpg",
+            "images/men_shoes8.jpg"
         ],
         tailles: [40, 41, 42, 43, 44, 45],
         description: "Le mocassin KTN Loafer apporte une touche d'élégance décontractée à toute tenue de bureau ou de sortie, sans sacrifier le confort de la marche quotidienne.",
@@ -154,7 +154,7 @@ const PRODUITS = [
 
     {
         id: 7,
-        nom: "KTN Elegance",
+        nom: "KTN Élégance",
         categorie: "femme",
         categorieLabel: "Femme",
         type: "Talons",
@@ -164,11 +164,11 @@ const PRODUITS = [
         image: "images/ktn-elegance1.jpg",
         images: [
             "images/ktn-elegance1.jpg",
-            "images/ktn-elegance1.jpg",
-            "images/ktn-elegance1.jpg"
+            "images/ktn-elegance2.jpg",
+            "images/ktn-elegance4.jpg"
         ],
         tailles: [36, 37, 38, 39, 40],
-        description: "KTN Elegance sublime chaque silhouette avec un talon stable et une ligne raffinée, pensée pour les soirées comme pour le bureau.",
+        description: "KTN Élégance sublime chaque silhouette avec un talon stable et une ligne raffinée, pensée pour les soirées comme pour le bureau.",
         details: [
             "Talon stable de hauteur moyenne",
             "Semelle intérieure rembourrée",
@@ -189,8 +189,8 @@ const PRODUITS = [
         image: "images/ktn-comfort1.jpg",
         images: [
             "images/ktn-comfort1.jpg",
-            "images/ktn-comfort1.jpg",
-            "images/ktn-comfort1.jpg"
+            "images/ktn-comfort2.jpg",
+            "images/ktn-elegance2.jpg"
         ],
         tailles: [36, 37, 38, 39, 40, 41],
         description: "Pensée pour celles qui veulent de la hauteur sans compromis, la KTN Comfort combine semelle compensée stable et matière souple pour un confort qui dure toute la journée.",
@@ -214,8 +214,8 @@ const PRODUITS = [
         image: "images/ktn-urban5.jpg",
         images: [
             "images/ktn-urban5.jpg",
-            "images/ktn-urban5.jpg",
-            "images/ktn-urban5.jpg"
+            "images/ktn-urban3.jpg",
+            "images/ktn-urban.jpg"
         ],
         tailles: [39, 40, 41, 42, 43, 44, 45],
         description: "Conçue pour la ville, la KTN Urban mise sur une silhouette robuste et une accroche renforcée pour affronter n'importe quel trottoir avec style.",
@@ -239,8 +239,8 @@ const PRODUITS = [
         image: "images/ktn-summer1.jpg",
         images: [
             "images/ktn-summer1.jpg",
-            "images/ktn-summer1.jpg",
-            "images/ktn-summer1.jpg"
+            "images/ktn-sandale3.png",
+            "images/ktn-sandale2.png"
         ],
         tailles: [36, 37, 38, 39, 40],
         description: "Fraîche et minimaliste, la KTN Summer est la sandale des beaux jours : légère, aérée, et prête à accompagner chaque escapade estivale.",
@@ -264,8 +264,8 @@ const PRODUITS = [
         image: "images/Kids Flex1.jpg",
         images: [
             "images/Kids Flex1.jpg",
-            "images/Kids Flex1.jpg",
-            "images/Kids Flex1.jpg"
+            "images/ktn-junior3.jpg",
+            "images/ktn-junior4.jpg"
         ],
         tailles: [27, 28, 29, 30, 31, 32],
         description: "Souple et facile à enfiler, la KTN Kids Flex est pensée pour suivre les enfants dans tous leurs jeux, avec une semelle flexible qui accompagne chaque pas.",
@@ -289,8 +289,8 @@ const PRODUITS = [
         image: "images/ktn-junior01.jpg",
         images: [
             "images/ktn-junior01.jpg",
-            "images/ktn-junior01.jpg",
-            "images/ktn-junior01.jpg"
+            "images/ktn-junior3.jpg",
+            "images/ktn-junior4.jpg"
         ],
         tailles: [28, 29, 30, 31, 32, 33, 34],
         description: "La KTN Junior offre à votre enfant une sneaker robuste et confortable, taillée pour la cour de récré comme pour les balades du week-end.",

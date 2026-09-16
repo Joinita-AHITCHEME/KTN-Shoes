@@ -1,7 +1,10 @@
-/* SCRIPT PRINCIPAL */
+/* SCRIPT PRINCIPAL — KTN SHOES */
 
 const CLE_PANIER = "ktn_panier";
 const CLE_FAVORIS = "ktn_favoris";
+const CLE_THEME = "ktn_theme";
+const FRAIS_LIVRAISON = 1500;
+const TELEPHONE_WHATSAPP = "2290153539873";
 
 
 /* 1. STOCKAGE — PANIER */
@@ -27,7 +30,6 @@ function ecrirePanier(panier) {
 function ajouterAuPanier(id, taille, quantite = 1) {
     const panier = lirePanier();
 
-    // Une même ligne = même produit + même taille
     const ligneExistante = panier.find(
         item => item.id === id && item.taille === taille
     );
@@ -39,14 +41,14 @@ function ajouterAuPanier(id, taille, quantite = 1) {
     }
 
     ecrirePanier(panier);
-    mettreAJourPastilleCartier();
+    mettreAJourPastillePanier();
 }
 
 function retirerDuPanier(id, taille) {
     let panier = lirePanier();
     panier = panier.filter(item => !(item.id === id && item.taille === taille));
     ecrirePanier(panier);
-    mettreAJourPastilleCartier();
+    mettreAJourPastillePanier();
 }
 
 function modifierQuantitePanier(id, taille, nouvelleQuantite) {
@@ -62,14 +64,14 @@ function modifierQuantitePanier(id, taille, nouvelleQuantite) {
 
     ligne.quantite = nouvelleQuantite;
     ecrirePanier(panier);
-    mettreAJourPastilleCartier();
+    mettreAJourPastillePanier();
 }
 
 function nombreArticlesPanier() {
     return lirePanier().reduce((total, item) => total + item.quantite, 0);
 }
 
-function mettreAJourPastilleCartier() {
+function mettreAJourPastillePanier() {
     document
         .querySelectorAll(".pastille-panier")
         .forEach(pastille => {
@@ -120,9 +122,27 @@ function initMenuMobile() {
 
     if (!bouton || !navigation) return;
 
+    function fermerMenu() {
+        navigation.classList.remove("navigation-ouverte");
+        bouton.setAttribute("aria-expanded", "false");
+    }
+
     bouton.addEventListener("click", () => {
         const ouvert = navigation.classList.toggle("navigation-ouverte");
         bouton.setAttribute("aria-expanded", ouvert ? "true" : "false");
+    });
+
+    // Fermeture lors du clic sur n'importe quel lien du menu
+    navigation.querySelectorAll("a").forEach(lien => {
+        lien.addEventListener("click", fermerMenu);
+    });
+
+    // Fermeture avec la touche Échap
+    document.addEventListener("keydown", evenement => {
+        if (evenement.key === "Escape" && navigation.classList.contains("navigation-ouverte")) {
+            fermerMenu();
+            bouton.focus();
+        }
     });
 }
 
@@ -149,30 +169,103 @@ function initBoutonsFavoris() {
 }
 
 
-/* 5. FILTRES CATALOGUE */
+/* 5. RECHERCHE, TRI ET FILTRES CATALOGUE */
 
 function initFiltres() {
     const boutonsFiltre = document.querySelectorAll(".filtre[data-filtre]");
-    const cartes = document.querySelectorAll(".carte-produit[data-categorie]");
+    const conteneurGrille = document.querySelector(".grille-produits2") || document.querySelector(".grille-produits");
+    const champRecherche = document.getElementById("recherche-catalogue");
+    const selectTri = document.getElementById("tri-catalogue");
+    const compteur = document.querySelector(".catalogue-compteur");
 
-    if (!boutonsFiltre.length) return;
+    if (!conteneurGrille) return;
 
-    boutonsFiltre.forEach(bouton => {
-        bouton.addEventListener("click", () => {
+    let categorieActive = "tous";
+    let rechercheTexte = "";
+    let triActif = "defaut";
 
-            boutonsFiltre.forEach(b => b.classList.remove("actif"));
-            bouton.classList.add("actif");
+    function appliquerFiltresEtTri() {
+        const cartes = Array.from(conteneurGrille.querySelectorAll(".carte-produit"));
+        let visibles = 0;
 
-            const filtre = bouton.dataset.filtre;
+        cartes.forEach(carte => {
+            const categorie = carte.dataset.categorie || "";
+            const titre = (carte.querySelector("h3")?.textContent || "").toLowerCase();
+            const categorieTexte = (carte.querySelector(".categorie-produit")?.textContent || "").toLowerCase();
 
-            cartes.forEach(carte => {
-                const correspond =
-                    filtre === "tous" || carte.dataset.categorie === filtre;
+            const correspondCategorie = (categorieActive === "tous" || categorie === categorieActive);
+            const correspondRecherche = !rechercheTexte || titre.includes(rechercheTexte) || categorieTexte.includes(rechercheTexte);
 
-                carte.style.display = correspond ? "" : "none";
+            if (correspondCategorie && correspondRecherche) {
+                carte.style.display = "";
+                visibles++;
+            } else {
+                carte.style.display = "none";
+            }
+        });
+
+        // Tri des cartes visibles
+        if (triActif !== "defaut") {
+            cartes.sort((a, b) => {
+                const prixA = extrairePrix(a);
+                const prixB = extrairePrix(b);
+                const nomA = (a.querySelector("h3")?.textContent || "").trim();
+                const nomB = (b.querySelector("h3")?.textContent || "").trim();
+                const noteA = (a.querySelector(".note-produit")?.textContent.match(/★/g) || []).length;
+                const noteB = (b.querySelector(".note-produit")?.textContent.match(/★/g) || []).length;
+
+                switch (triActif) {
+                    case "prix-asc":
+                        return prixA - prixB;
+                    case "prix-desc":
+                        return prixB - prixA;
+                    case "nom-asc":
+                        return nomA.localeCompare(nomB);
+                    case "note-desc":
+                        return noteB - noteA;
+                    default:
+                        return 0;
+                }
+            });
+
+            cartes.forEach(carte => conteneurGrille.appendChild(carte));
+        }
+
+        if (compteur) {
+            compteur.textContent = `${visibles} modèle${visibles > 1 ? "s" : ""}`;
+        }
+    }
+
+    function extrairePrix(carte) {
+        const texte = carte.querySelector(".prix")?.textContent || "";
+        const nombre = parseInt(texte.replace(/[^\d]/g, ""), 10);
+        return isNaN(nombre) ? 0 : nombre;
+    }
+
+    if (boutonsFiltre.length) {
+        boutonsFiltre.forEach(bouton => {
+            bouton.addEventListener("click", () => {
+                boutonsFiltre.forEach(b => b.classList.remove("actif"));
+                bouton.classList.add("actif");
+                categorieActive = bouton.dataset.filtre;
+                appliquerFiltresEtTri();
             });
         });
-    });
+    }
+
+    if (champRecherche) {
+        champRecherche.addEventListener("input", () => {
+            rechercheTexte = champRecherche.value.trim().toLowerCase();
+            appliquerFiltresEtTri();
+        });
+    }
+
+    if (selectTri) {
+        selectTri.addEventListener("change", () => {
+            triActif = selectTri.value;
+            appliquerFiltresEtTri();
+        });
+    }
 }
 
 
@@ -211,11 +304,11 @@ function afficherToast(message) {
     clearTimeout(toast._timeout);
     toast._timeout = setTimeout(() => {
         toast.classList.remove("toast-visible");
-    }, 2200);
+    }, 2400);
 }
 
 
-/* 8. PAGE PRODUIT — RENDU DYNAMIQUE */
+/* 6. PAGE PRODUIT — RENDU DYNAMIQUE */
 
 function initPageProduit() {
     const conteneur = document.querySelector("[data-page='produit']");
@@ -240,7 +333,7 @@ function initPageProduit() {
 
     document.title = `KTN Shoes | ${produit.nom}`;
 
-    // -- Fil d'ariane
+    // Fil d'Ariane
     const filDariane = document.querySelector(".fil-ariane-produit");
     if (filDariane) {
         filDariane.innerHTML = `
@@ -269,7 +362,7 @@ function initPageProduit() {
                     data-src="${src}"
                     aria-label="Voir l'image ${index + 1} de ${produit.nom}"
                 >
-                    <img src="${src}" alt="">
+                    <img src="${src}" alt="Miniature ${index + 1} de ${produit.nom}" loading="lazy">
                 </button>
             `)
             .join("");
@@ -309,7 +402,9 @@ function initPageProduit() {
 
     const note = document.querySelector(".product-note");
     if (note) {
-        note.innerHTML = "★".repeat(produit.note) + "☆".repeat(5 - produit.note);
+        note.setAttribute("role", "img");
+        note.setAttribute("aria-label", `Note : ${produit.note} sur 5 étoiles`);
+        note.innerHTML = `<span aria-hidden="true">${"★".repeat(produit.note)}${"☆".repeat(5 - produit.note)}</span>`;
     }
 
     if (produit.badge) {
@@ -393,6 +488,45 @@ function initPageProduit() {
         initBoutonsFavoris();
         initAjoutRapidePanier();
     }
+
+    // Données structurées Schema.org Produit
+    injecterSchemaProduit(produit);
+}
+
+function injecterSchemaProduit(produit) {
+    const existant = document.getElementById("schema-produit");
+    if (existant) existant.remove();
+
+    const script = document.createElement("script");
+    script.id = "schema-produit";
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": produit.nom,
+        "image": window.location.origin + window.location.pathname.replace(/[^/]*$/, "") + produit.image,
+        "description": produit.description,
+        "category": produit.categorieLabel,
+        "brand": {
+            "@type": "Brand",
+            "name": "KTN Shoes"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": produit.prix,
+            "priceCurrency": "XOF",
+            "availability": "https://schema.org/InStock",
+            "url": window.location.href
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": produit.note,
+            "bestRating": "5",
+            "worstRating": "1",
+            "ratingCount": "12"
+        }
+    });
+    document.head.appendChild(script);
 }
 
 function remplirTexte(selecteur, texte) {
@@ -417,14 +551,16 @@ function carteProduitHTML(produit) {
             >♡</button>
 
             <a href="produit.html?id=${produit.id}" class="image-produit">
-                <img src="${produit.image}" alt="${produit.nom}">
+                <img src="${produit.image}" alt="${produit.nom}" loading="lazy">
                 <span class="voir-produit">Voir le produit →</span>
             </a>
 
             <div class="infos-produit">
                 <span class="categorie-produit">${produit.categorieLabel} · ${produit.type}</span>
                 <h3>${produit.nom}</h3>
-                <div class="note-produit">${"★".repeat(produit.note)}${"☆".repeat(5 - produit.note)}</div>
+                <div class="note-produit" role="img" aria-label="Note : ${produit.note} sur 5 étoiles">
+                    <span aria-hidden="true">${"★".repeat(produit.note)}${"☆".repeat(5 - produit.note)}</span>
+                </div>
 
                 <div class="produit-bas">
                     <strong class="prix">${formaterPrix(produit.prix)}</strong>
@@ -437,9 +573,7 @@ function carteProduitHTML(produit) {
 }
 
 
-/* 9. PAGE PANIER — RENDU DYNAMIQUE */
-
-const FRAIS_LIVRAISON = 1500;
+/* 7. PAGE PANIER & COMMANDE WHATSAPP */
 
 function initPagePanier() {
     const conteneur = document.querySelector("[data-page='panier']");
@@ -450,17 +584,120 @@ function initPagePanier() {
     const boutonValider = document.querySelector(".panier-valider");
     if (boutonValider) {
         boutonValider.addEventListener("click", () => {
-            if (lirePanier().length === 0) return;
+            const panier = lirePanier();
+            if (panier.length === 0) return;
 
-            afficherToast("Commande validée — merci pour votre achat !");
-            localStorage.removeItem(CLE_PANIER);
-            afficherPanier();
-            mettreAJourPastilleCartier();
+            afficherModaleConfirmation(panier);
         });
     }
 }
 
+function afficherModaleConfirmation(panier) {
+    let modale = document.getElementById("modale-commande");
+    if (!modale) {
+        modale = document.createElement("div");
+        modale.id = "modale-commande";
+        modale.className = "modale-overlay";
+        document.body.appendChild(modale);
+    }
+
+    const numeroCommande = "KTN-" + Math.floor(100000 + Math.random() * 900000);
+    let totalArticles = 0;
+
+    let texteWhatsApp = `*Nouvelle commande KTN Shoes*\nRef: ${numeroCommande}\n--------------------------\n`;
+
+    const lignesHTML = panier.map(ligne => {
+        const produit = obtenirProduitParId(ligne.id);
+        if (!produit) return "";
+        const sousTotal = produit.prix * ligne.quantite;
+        totalArticles += sousTotal;
+
+        texteWhatsApp += `• ${produit.nom} (Taille ${ligne.taille}) x${ligne.quantite} : ${formaterPrix(sousTotal)}\n`;
+
+        return `
+            <div class="modale-ligne">
+                <span>${produit.nom} (Taille ${ligne.taille}) <strong>x${ligne.quantite}</strong></span>
+                <span>${formaterPrix(sousTotal)}</span>
+            </div>
+        `;
+    }).join("");
+
+    const totalFinal = totalArticles + FRAIS_LIVRAISON;
+    texteWhatsApp += `--------------------------\nSous-total : ${formaterPrix(totalArticles)}\nLivraison : ${formaterPrix(FRAIS_LIVRAISON)}\n*Total : ${formaterPrix(totalFinal)}*\n\nJe souhaite confirmer ma commande. Merci !`;
+
+    const lienWhatsApp = `https://wa.me/${TELEPHONE_WHATSAPP}?text=${encodeURIComponent(texteWhatsApp)}`;
+
+    modale.innerHTML = `
+        <div class="modale-contenu" role="dialog" aria-modal="true" aria-labelledby="titre-confirmation">
+            <div class="modale-icone">✓</div>
+            <h2 id="titre-confirmation">Commande enregistrée !</h2>
+            <p class="modale-ref">Référence : <strong>${numeroCommande}</strong></p>
+            <div class="modale-recapitulatif">
+                ${lignesHTML}
+                <div class="modale-ligne modale-livraison">
+                    <span>Livraison standard</span>
+                    <span>${formaterPrix(FRAIS_LIVRAISON)}</span>
+                </div>
+                <div class="modale-ligne modale-total">
+                    <strong>Total à régler</strong>
+                    <strong>${formaterPrix(totalFinal)}</strong>
+                </div>
+            </div>
+            <p class="modale-instruction">
+                Finalisez dès maintenant votre commande directement avec nous sur WhatsApp pour convenir de la livraison.
+            </p>
+            <div class="modale-actions">
+                <a href="${lienWhatsApp}" target="_blank" rel="noopener noreferrer" class="bouton bouton-whatsapp">
+                    Finaliser sur WhatsApp
+                </a>
+                <button type="button" class="bouton bouton-secondaire modale-fermer">
+                    Fermer
+                </button>
+            </div>
+        </div>
+    `;
+
+    modale.classList.add("modale-ouverte");
+
+    const fermer = () => {
+        modale.remove();
+        localStorage.removeItem(CLE_PANIER);
+        afficherPanier();
+        mettreAJourPastillePanier();
+    };
+
+    const boutonFermer = modale.querySelector(".modale-fermer");
+    if (boutonFermer) {
+        boutonFermer.addEventListener("click", (e) => {
+            e.preventDefault();
+            fermer();
+        });
+    }
+
+    const boutonWhatsApp = modale.querySelector(".bouton-whatsapp");
+    if (boutonWhatsApp) {
+        boutonWhatsApp.addEventListener("click", () => {
+            setTimeout(fermer, 400);
+        });
+    }
+
+    modale.addEventListener("click", (e) => {
+        if (e.target === modale) {
+            fermer();
+        }
+    });
+
+    const gestionToucheEchap = (e) => {
+        if (e.key === "Escape") {
+            fermer();
+            document.removeEventListener("keydown", gestionToucheEchap);
+        }
+    };
+    document.addEventListener("keydown", gestionToucheEchap);
+}
+
 function afficherPanier() {
+    const contenuConteneur = document.querySelector(".panier-contenu");
     const listeConteneur = document.querySelector(".panier-liste");
     const panierVideConteneur = document.querySelector(".panier-vide");
     const resumeConteneur = document.querySelector(".panier-resume");
@@ -468,12 +705,14 @@ function afficherPanier() {
     const panier = lirePanier();
 
     if (panier.length === 0) {
+        if (contenuConteneur) contenuConteneur.style.display = "none";
         if (listeConteneur) listeConteneur.style.display = "none";
         if (resumeConteneur) resumeConteneur.style.display = "none";
         if (panierVideConteneur) panierVideConteneur.style.display = "block";
         return;
     }
 
+    if (contenuConteneur) contenuConteneur.style.display = "grid";
     if (listeConteneur) listeConteneur.style.display = "grid";
     if (resumeConteneur) resumeConteneur.style.display = "block";
     if (panierVideConteneur) panierVideConteneur.style.display = "none";
@@ -550,9 +789,7 @@ function afficherPanier() {
 }
 
 
-/* 11. BASCULE THÈME (clair / sombre) */
-
-const CLE_THEME = "ktn_theme";
+/* 8. BASCULE THÈME (clair / sombre) */
 
 function themeActuel() {
     return document.documentElement.getAttribute("data-theme") === "sombre"
@@ -592,10 +829,10 @@ function initBasculeTheme() {
 }
 
 
-/* 12. INITIALISATION GLOBALE */
+/* 9. INITIALISATION GLOBALE */
 
 document.addEventListener("DOMContentLoaded", () => {
-    mettreAJourPastilleCartier();
+    mettreAJourPastillePanier();
     initMenuMobile();
     initBoutonsFavoris();
     initFiltres();

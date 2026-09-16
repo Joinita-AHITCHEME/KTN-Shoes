@@ -60,8 +60,8 @@
     --fond-carte: #1c1d21;
     --texte: #f2f2f4;
 
-    --gris: #9a9aa2;
-    --gris-fonce: #c2c2c8;
+    --gris: #b5b5c0;
+    --gris-fonce: #dedee4;
     --gris-clair: #18191c;
     --gris-tres-clair: #131316;
 
@@ -4693,4 +4693,249 @@ button:focus-visible {
         justify-self: start;
     }
 
+}
+
+/* ===================================================
+   BARRE D'OUTILS CATALOGUE (RECHERCHE & TRI)
+=================================================== */
+
+.barre-outils-catalogue {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.recherche-conteneur {
+    flex: 1;
+    min-width: 260px;
+    position: relative;
+}
+
+.recherche-champ {
+    width: 100%;
+    padding: 12px 18px;
+    border-radius: 30px;
+    border: 1px solid var(--bordure);
+    background: var(--fond-carte);
+    color: var(--texte);
+    font-size: 0.95rem;
+    font-family: inherit;
+    outline: none;
+    transition: all var(--transition);
+    box-shadow: var(--ombre-legere);
+}
+
+.recherche-champ:focus {
+    border-color: var(--bleu);
+    box-shadow: 0 0 0 3px rgba(var(--bleu-rgb), 0.15);
+}
+
+.recherche-champ::placeholder {
+    color: var(--gris);
+}
+
+.tri-conteneur {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tri-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--gris-fonce);
+    white-space: nowrap;
+}
+
+.tri-champ {
+    padding: 10px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--bordure);
+    background: var(--fond-carte);
+    color: var(--texte);
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    outline: none;
+    transition: all var(--transition);
+}
+
+.tri-champ:focus {
+    border-color: var(--bleu);
+}
+
+/* ===================================================
+   MODALE DE CONFIRMATION COMMANDE & WHATSAPP
+=================================================== */
+
+.modale-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+    animation: modaleFadeIn 0.25s ease-out;
+}
+
+.modale-contenu {
+    background: var(--fond-carte);
+    color: var(--texte);
+    border-radius: 22px;
+    padding: 32px 28px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--bordure);
+    text-align: center;
+    animation: modaleScaleUp 0.25s ease-out;
+}
+
+@keyframes modaleFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modaleScaleUp {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modale-icone {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.35);
+}
+
+.modale-titre {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: var(--texte);
+}
+
+.modale-reference {
+    font-size: 0.88rem;
+    color: var(--gris);
+    margin-bottom: 18px;
+}
+
+.modale-recapitulatif {
+    background: var(--fond-alterne);
+    border-radius: 14px;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.modale-ligne {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    border-bottom: 1px dashed var(--bordure);
+    color: var(--texte);
+}
+
+.modale-ligne:last-child {
+    border-bottom: none;
+}
+
+.modale-ligne.total {
+    margin-top: 6px;
+    padding-top: 8px;
+    border-top: 1px solid var(--bordure);
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--bleu);
+}
+
+.modale-explication {
+    font-size: 0.88rem;
+    color: var(--gris-fonce);
+    line-height: 1.5;
+    margin-bottom: 22px;
+}
+
+.modale-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bouton-whatsapp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #25d366;
+    color: #ffffff !important;
+    padding: 13px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background var(--transition), transform var(--transition);
+    box-shadow: 0 4px 14px rgba(37, 211, 102, 0.35);
+}
+
+.bouton-whatsapp:hover {
+    background: #1ebc57;
+    transform: translateY(-2px);
+    color: #ffffff !important;
+}
+
+.bouton-fermer-modale,
+.modale-fermer {
+    background: transparent;
+    color: var(--gris-fonce);
+    border: 1px solid var(--bordure);
+    padding: 11px 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.bouton-fermer-modale:hover,
+.modale-fermer:hover {
+    background: var(--fond-alterne);
+    color: var(--texte);
+}
+
+/* ===================================================
+   ACCESSIBILITÉ & UTILITAIRES
+=================================================== */
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }
