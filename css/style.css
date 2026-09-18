@@ -2853,19 +2853,30 @@ button {
 
 
 .social-liens a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #9ca3af;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color var(--transition), transform var(--transition);
+}
 
-    color:
-        #9ca3af;
+.social-liens a svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    transition: stroke var(--transition), transform var(--transition);
+}
 
-    font-size:
-        0.78rem;
+.social-liens a:hover {
+    color: var(--blanc);
+    transform: translateY(-2px);
+}
 
-    text-decoration:
-        none;
-
-    transition:
-        color var(--transition);
-
+.social-liens a:hover svg {
+    stroke: var(--bleu-clair-sombre);
 }
 
 

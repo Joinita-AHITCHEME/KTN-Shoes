@@ -56,7 +56,7 @@
 
 - 🚀 **SEO & Données Structurées** :
   - Métadonnées Open Graph (Facebook, WhatsApp) et Twitter Cards sur chaque page.
-  - Balises `<link rel="canonical">` et Favicon SVG autonome (`👟`).
+  - Balises `<link rel="canonical">` et métadonnées d'indexation.
   - Intégration de données structurées Schema.org JSON-LD (`ShoeStore`, `ItemList`, `Product`).
 
 - ♿ **Accessibilité (a11y)** :
