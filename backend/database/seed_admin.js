@@ -10,7 +10,7 @@ console.log('--- INITIALISATION DU COMPTE ADMINISTRATEUR ---');
 const IDENTIFIANT_ADMIN = 'admin';
 const EMAIL_ADMIN = 'silverktn407@gmail.com';
 const MOT_DE_PASSE_ADMIN = 'KtnShoes@2026!';
-const NOM_COMPLET_ADMIN = 'Silver AHITCHÉMÉ (Gérante)';
+const NOM_COMPLET_ADMIN = 'Joinita AHITCHEME (Gérante)';
 
 const adminExistant = db.prepare('SELECT id, identifiant FROM administrateurs WHERE identifiant = ? OR email = ?').get(IDENTIFIANT_ADMIN, EMAIL_ADMIN);
 

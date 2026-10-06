@@ -160,7 +160,7 @@ L'application a été conçue pour être **100% robuste** :
 
 ## 👥 Auteur & Crédits
 
-* **Créatrice du projet** : Silver AHITCHÉMÉ
+* **Créatrice du projet** : Joinita AHITCHEME
 * **Boutique** : KTN Shoes
 * **Année** : 2026
 * **Localisation** : Cotonou, Bénin
