@@ -1,0 +1,30 @@
+{
+  "name": "ktn-shoes-backend",
+  "version": "1.0.0",
+  "description": "API Backend pour la boutique e-commerce KTN Shoes",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "db:init": "node database/init.js",
+    "db:test": "node database/test.js",
+    "db:seed": "node database/seed.js",
+    "setup": "node database/setup.js",
+    "db:admin": "node database/seed_admin.js"
+  },
+  "keywords": [
+    "ecommerce",
+    "api",
+    "express",
+    "shoes",
+    "ktn"
+  ],
+  "author": "AHITCHEME Joinita",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.3"
+  }
+}

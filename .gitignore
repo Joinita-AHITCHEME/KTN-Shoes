@@ -1,0 +1,13 @@
+﻿# Dépendances et environnement
+node_modules/
+.env
+
+# Base de données locale SQLite
+*.db
+backend/database/*.db
+
+# IDE et OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
