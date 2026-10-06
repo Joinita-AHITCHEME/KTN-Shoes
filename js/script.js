@@ -3,11 +3,8 @@
 const CLE_PANIER = "ktn_panier";
 const CLE_FAVORIS = "ktn_favoris";
 const CLE_THEME = "ktn_theme";
-const FRAIS_LIVRAISON = 1500;
+const FRAIS_LIVRAISON = 1000;
 const TELEPHONE_WHATSAPP = "2290153539873";
-
-
-/* 1. STOCKAGE — PANIER */
 
 function lirePanier() {
     try {
@@ -79,9 +76,6 @@ function mettreAJourPastillePanier() {
         });
 }
 
-
-/* 2. STOCKAGE — FAVORIS */
-
 function lireFavoris() {
     try {
         const donnees = localStorage.getItem(CLE_FAVORIS);
@@ -113,9 +107,6 @@ function basculerFavori(id) {
     return favoris.includes(id);
 }
 
-
-/* 3. MENU MOBILE */
-
 function initMenuMobile() {
     const bouton = document.querySelector(".menu-mobile");
     const navigation = document.querySelector(".navigation");
@@ -132,12 +123,10 @@ function initMenuMobile() {
         bouton.setAttribute("aria-expanded", ouvert ? "true" : "false");
     });
 
-    // Fermeture lors du clic sur n'importe quel lien du menu
     navigation.querySelectorAll("a").forEach(lien => {
         lien.addEventListener("click", fermerMenu);
     });
 
-    // Fermeture avec la touche Échap
     document.addEventListener("keydown", evenement => {
         if (evenement.key === "Escape" && navigation.classList.contains("navigation-ouverte")) {
             fermerMenu();
@@ -145,9 +134,6 @@ function initMenuMobile() {
         }
     });
 }
-
-
-/* 4. BOUTONS FAVORIS (cartes produit) */
 
 function initBoutonsFavoris() {
     document.querySelectorAll(".favori-produit[data-id]").forEach(bouton => {
@@ -167,9 +153,6 @@ function initBoutonsFavoris() {
         });
     });
 }
-
-
-/* 5. RECHERCHE, TRI ET FILTRES CATALOGUE */
 
 function initFiltres() {
     const boutonsFiltre = document.querySelectorAll(".filtre[data-filtre]");
@@ -204,7 +187,6 @@ function initFiltres() {
             }
         });
 
-        // Tri des cartes visibles
         if (triActif !== "defaut") {
             cartes.sort((a, b) => {
                 const prixA = extrairePrix(a);
@@ -268,7 +250,6 @@ function initFiltres() {
     }
 }
 
-
 function initAjoutRapidePanier() {
     document.querySelectorAll(".ajouter-produit[data-id]").forEach(bouton => {
         bouton.addEventListener("click", evenement => {
@@ -285,9 +266,6 @@ function initAjoutRapidePanier() {
         });
     });
 }
-
-
-/* PETITE NOTIFICATION "TOAST" */
 
 function afficherToast(message) {
     let toast = document.querySelector(".toast-ktn");
@@ -306,9 +284,6 @@ function afficherToast(message) {
         toast.classList.remove("toast-visible");
     }, 2400);
 }
-
-
-/* 6. PAGE PRODUIT — RENDU DYNAMIQUE */
 
 function initPageProduit() {
     const conteneur = document.querySelector("[data-page='produit']");
@@ -333,7 +308,6 @@ function initPageProduit() {
 
     document.title = `KTN Shoes | ${produit.nom}`;
 
-    // Fil d'Ariane
     const filDariane = document.querySelector(".fil-ariane-produit");
     if (filDariane) {
         filDariane.innerHTML = `
@@ -448,6 +422,25 @@ function initPageProduit() {
                 tailleChoisie = Number(option.dataset.taille);
             });
         });
+
+        fetch(`http://localhost:3000/api/produits/${id}`)
+            .then(r => r.ok ? r.json() : null)
+            .then(data => {
+                if (data && data.donnees && Array.isArray(data.donnees.stocks)) {
+                    const stocks = data.donnees.stocks;
+                    const boutonsTaille = selecteurTailles.querySelectorAll(".taille-option");
+                    boutonsTaille.forEach(btn => {
+                        const tailleNum = Number(btn.dataset.taille);
+                        const infoStock = stocks.find(s => s.pointure === tailleNum);
+                        if (infoStock && infoStock.quantite <= 0) {
+                            btn.classList.add("taille-epuisee");
+                            btn.disabled = true;
+                            btn.title = "Pointure épuisée";
+                        }
+                    });
+                }
+            })
+            .catch(() => {});
     }
 
     const champQuantite = document.querySelector(".quantite-valeur");
@@ -489,7 +482,6 @@ function initPageProduit() {
         initAjoutRapidePanier();
     }
 
-    // Données structurées Schema.org Produit
     injecterSchemaProduit(produit);
 }
 
@@ -572,9 +564,6 @@ function carteProduitHTML(produit) {
     `;
 }
 
-
-/* 7. PAGE PANIER & COMMANDE WHATSAPP */
-
 function initPagePanier() {
     const conteneur = document.querySelector("[data-page='panier']");
     if (!conteneur) return;
@@ -601,99 +590,178 @@ function afficherModaleConfirmation(panier) {
         document.body.appendChild(modale);
     }
 
-    const numeroCommande = "KTN-" + Math.floor(100000 + Math.random() * 900000);
     let totalArticles = 0;
-
-    let texteWhatsApp = `*Nouvelle commande KTN Shoes*\nRef: ${numeroCommande}\n--------------------------\n`;
-
     const lignesHTML = panier.map(ligne => {
         const produit = obtenirProduitParId(ligne.id);
         if (!produit) return "";
         const sousTotal = produit.prix * ligne.quantite;
         totalArticles += sousTotal;
-
-        texteWhatsApp += `• ${produit.nom} (Taille ${ligne.taille}) x${ligne.quantite} : ${formaterPrix(sousTotal)}\n`;
-
         return `
             <div class="modale-ligne">
-                <span>${produit.nom} (Taille ${ligne.taille}) <strong>x${ligne.quantite}</strong></span>
+                <span>${produit.nom} (Pt. ${ligne.taille}) <strong>x${ligne.quantite}</strong></span>
                 <span>${formaterPrix(sousTotal)}</span>
             </div>
         `;
     }).join("");
 
     const totalFinal = totalArticles + FRAIS_LIVRAISON;
-    texteWhatsApp += `--------------------------\nSous-total : ${formaterPrix(totalArticles)}\nLivraison : ${formaterPrix(FRAIS_LIVRAISON)}\n*Total : ${formaterPrix(totalFinal)}*\n\nJe souhaite confirmer ma commande. Merci !`;
-
-    const lienWhatsApp = `https://wa.me/${TELEPHONE_WHATSAPP}?text=${encodeURIComponent(texteWhatsApp)}`;
 
     modale.innerHTML = `
-        <div class="modale-contenu" role="dialog" aria-modal="true" aria-labelledby="titre-confirmation">
-            <div class="modale-icone">✓</div>
-            <h2 id="titre-confirmation">Commande enregistrée !</h2>
-            <p class="modale-ref">Référence : <strong>${numeroCommande}</strong></p>
+        <div class="modale-contenu" role="dialog" aria-modal="true" aria-labelledby="titre-commande">
+            <h2 id="titre-commande" class="modale-titre">Finaliser votre commande</h2>
+            <p class="modale-reference">Renseignez vos coordonnées pour la livraison à domicile.</p>
+
             <div class="modale-recapitulatif">
                 ${lignesHTML}
-                <div class="modale-ligne modale-livraison">
+                <div class="modale-ligne">
                     <span>Livraison standard</span>
                     <span>${formaterPrix(FRAIS_LIVRAISON)}</span>
                 </div>
-                <div class="modale-ligne modale-total">
-                    <strong>Total à régler</strong>
+                <div class="modale-ligne total">
+                    <strong>Total</strong>
                     <strong>${formaterPrix(totalFinal)}</strong>
                 </div>
             </div>
-            <p class="modale-instruction">
-                Finalisez dès maintenant votre commande directement avec nous sur WhatsApp pour convenir de la livraison.
-            </p>
-            <div class="modale-actions">
-                <a href="${lienWhatsApp}" target="_blank" rel="noopener noreferrer" class="bouton bouton-whatsapp">
-                    Finaliser sur WhatsApp
-                </a>
-                <button type="button" class="bouton bouton-secondaire modale-fermer">
-                    Fermer
-                </button>
-            </div>
+
+            <form id="form-validation-commande" class="form-commande-client" novalidate>
+                <div class="contact-champ-groupe" style="text-align: left; margin-bottom: 12px;">
+                    <label for="cmd-nom" style="font-size: 0.82rem; font-weight: 600;">Nom complet <span style="color:#ef4444;">*</span></label>
+                    <input type="text" id="cmd-nom" required placeholder="Ex : Jean Dupont" style="padding: 10px 12px; border: 1px solid var(--bordure); border-radius: 8px; width: 100%; background: var(--fond-page); color: var(--texte);">
+                </div>
+
+                <div class="contact-champ-groupe" style="text-align: left; margin-bottom: 12px;">
+                    <label for="cmd-tel" style="font-size: 0.82rem; font-weight: 600;">Numéro de téléphone (WhatsApp) <span style="color:#ef4444;">*</span></label>
+                    <input type="tel" id="cmd-tel" required placeholder="+229 01..." style="padding: 10px 12px; border: 1px solid var(--bordure); border-radius: 8px; width: 100%; background: var(--fond-page); color: var(--texte);">
+                </div>
+
+                <div class="contact-champ-groupe" style="text-align: left; margin-bottom: 14px;">
+                    <label for="cmd-adresse" style="font-size: 0.82rem; font-weight: 600;">Adresse de livraison & quartier <span style="color:#ef4444;">*</span></label>
+                    <input type="text" id="cmd-adresse" required placeholder="Ex : Haie Vive, Rue 12, Cotonou" style="padding: 10px 12px; border: 1px solid var(--bordure); border-radius: 8px; width: 100%; background: var(--fond-page); color: var(--texte);">
+                </div>
+
+                <div id="cmd-feedback" class="feedback-box feedback-erreur" style="display: none; margin-bottom: 12px; font-size: 0.85rem;" role="alert"></div>
+
+                <div class="modale-actions">
+                    <button type="submit" id="btn-confirmer-commande" class="bouton bouton-primaire" style="width: 100%; justify-content: center; padding: 13px;">
+                        Confirmer la commande
+                    </button>
+                    <button type="button" class="bouton bouton-secondaire modale-fermer" style="width: 100%; justify-content: center;">
+                        Annuler
+                    </button>
+                </div>
+            </form>
         </div>
     `;
 
     modale.classList.add("modale-ouverte");
 
-    const fermer = () => {
+    const formCmd = document.getElementById("form-validation-commande");
+    const feedback = document.getElementById("cmd-feedback");
+    const btnSubmit = document.getElementById("btn-confirmer-commande");
+
+    const fermerModale = () => {
         modale.remove();
-        localStorage.removeItem(CLE_PANIER);
-        afficherPanier();
-        mettreAJourPastillePanier();
     };
 
-    const boutonFermer = modale.querySelector(".modale-fermer");
-    if (boutonFermer) {
-        boutonFermer.addEventListener("click", (e) => {
-            e.preventDefault();
-            fermer();
-        });
-    }
+    modale.querySelectorAll(".modale-fermer").forEach(b => b.addEventListener("click", fermerModale));
 
-    const boutonWhatsApp = modale.querySelector(".bouton-whatsapp");
-    if (boutonWhatsApp) {
-        boutonWhatsApp.addEventListener("click", () => {
-            setTimeout(fermer, 400);
-        });
-    }
+    formCmd.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-    modale.addEventListener("click", (e) => {
-        if (e.target === modale) {
-            fermer();
+        const nom = (document.getElementById("cmd-nom").value || "").trim();
+        const telephone = (document.getElementById("cmd-tel").value || "").trim();
+        const adresse = (document.getElementById("cmd-adresse").value || "").trim();
+
+        if (!nom || !telephone || !adresse) {
+            feedback.textContent = "Veuillez remplir tous les champs obligatoires.";
+            feedback.style.display = "block";
+            return;
+        }
+
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = "<span>Enregistrement en cours...</span>";
+        feedback.style.display = "none";
+
+        const payload = {
+            client: {
+                nom,
+                telephone,
+                adresse,
+                ville: "Cotonou"
+            },
+            articles: panier.map(ligne => ({
+                produit_id: ligne.id,
+                pointure: ligne.taille,
+                quantite: ligne.quantite
+            }))
+        };
+
+        try {
+            const reponse = await fetch("http://localhost:3000/api/commandes", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+
+            const resultat = await reponse.json();
+
+            if (reponse.ok && resultat.statut === "succes") {
+                afficherSuccesCommande(resultat.donnees.reference, resultat.donnees.total, resultat.donnees.lienWhatsApp);
+            } else {
+                feedback.textContent = resultat.message || "Une erreur est survenue lors de l'enregistrement de votre commande.";
+                feedback.style.display = "block";
+                btnSubmit.disabled = false;
+                btnSubmit.innerHTML = "Confirmer la commande";
+            }
+        } catch (errReseau) {
+            console.warn("Backend non joignable, bascule sur la finalisation directe (fallback) :", errReseau);
+            const fallbackRef = "KTN-" + Math.floor(100000 + Math.random() * 900000);
+            let waText = `*Nouvelle commande KTN Shoes*\nRef: ${fallbackRef}\nClient: ${nom}\nTél: ${telephone}\nAdresse: ${adresse}\n--------------------------\n`;
+            for (const item of panier) {
+                const p = obtenirProduitParId(item.id);
+                if (p) waText += `• ${p.nom} (Pt. ${item.taille}) x${item.quantite} : ${formaterPrix(p.prix * item.quantite)}\n`;
+            }
+            waText += `--------------------------\nTotal : ${formaterPrix(totalFinal)}\n\nJe souhaite confirmer ma commande. Merci !`;
+            const waLink = `https://wa.me/${TELEPHONE_WHATSAPP}?text=${encodeURIComponent(waText)}`;
+
+            afficherSuccesCommande(fallbackRef, totalFinal, waLink);
         }
     });
 
-    const gestionToucheEchap = (e) => {
-        if (e.key === "Escape") {
-            fermer();
-            document.removeEventListener("keydown", gestionToucheEchap);
-        }
-    };
-    document.addEventListener("keydown", gestionToucheEchap);
+    function afficherSuccesCommande(reference, total, lienWhatsApp) {
+        modale.innerHTML = `
+            <div class="modale-contenu" role="dialog" aria-modal="true" aria-labelledby="titre-confirmation">
+                <div class="modale-icone">✓</div>
+                <h2 id="titre-confirmation">Commande enregistrée !</h2>
+                <p class="modale-reference">Référence officielle : <strong>${reference}</strong></p>
+                <div class="modale-recapitulatif">
+                    <div class="modale-ligne total">
+                        <strong>Total à régler</strong>
+                        <strong>${formaterPrix(total)}</strong>
+                    </div>
+                </div>
+                <p class="modale-explication">
+                    Votre commande est enregistrée dans notre système. Finalisez-la dès maintenant sur WhatsApp pour convenir de l'heure exacte de livraison !
+                </p>
+                <div class="modale-actions">
+                    <a href="${lienWhatsApp}" target="_blank" rel="noopener noreferrer" class="bouton bouton-whatsapp" id="btn-final-whatsapp">
+                        Finaliser sur WhatsApp
+                    </a>
+                    <button type="button" class="bouton bouton-secondaire modale-fermer-final">
+                        Fermer
+                    </button>
+                </div>
+            </div>
+        `;
+
+        localStorage.removeItem(CLE_PANIER);
+        afficherPanier();
+        mettreAJourPastillePanier();
+
+        const fermerFinal = () => modale.remove();
+        modale.querySelector(".modale-fermer-final").addEventListener("click", fermerFinal);
+        modale.querySelector("#btn-final-whatsapp").addEventListener("click", () => setTimeout(fermerFinal, 500));
+    }
 }
 
 function afficherPanier() {
@@ -788,9 +856,6 @@ function afficherPanier() {
     if (elementTotal) elementTotal.textContent = formaterPrix(sousTotal + FRAIS_LIVRAISON);
 }
 
-
-/* 8. BASCULE THÈME (clair / sombre) */
-
 function themeActuel() {
     return document.documentElement.getAttribute("data-theme") === "sombre"
         ? "sombre"
@@ -828,8 +893,96 @@ function initBasculeTheme() {
     });
 }
 
+function initFormulaireContact() {
+    const form = document.getElementById("form-contact");
+    if (!form) return;
 
-/* 9. INITIALISATION GLOBALE */
+    const feedback = document.getElementById("contact-feedback");
+    const btnSubmit = document.getElementById("btn-envoyer-contact");
+
+    function afficherFeedback(msg, type) {
+        if (!feedback) return;
+        feedback.textContent = msg;
+        feedback.className = "contact-feedback feedback-" + type;
+        feedback.style.display = "block";
+        feedback.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const nom = (form.nom ? form.nom.value : "").trim();
+        const email = (form.email ? form.email.value : "").trim();
+        const telephone = (form.telephone ? form.telephone.value : "").trim();
+        const sujet = (form.sujet ? form.sujet.value : "").trim();
+        const message = (form.message ? form.message.value : "").trim();
+
+        if (!nom) {
+            afficherFeedback("Veuillez saisir votre nom complet.", "erreur");
+            if (form.nom) form.nom.focus();
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+            afficherFeedback("Veuillez saisir une adresse email valide.", "erreur");
+            if (form.email) form.email.focus();
+            return;
+        }
+
+        if (!sujet) {
+            afficherFeedback("Veuillez sélectionner un sujet.", "erreur");
+            if (form.sujet) form.sujet.focus();
+            return;
+        }
+
+        if (!message || message.length < 5) {
+            afficherFeedback("Veuillez saisir un message d'au moins 5 caractères.", "erreur");
+            if (form.message) form.message.focus();
+            return;
+        }
+
+        const htmlOriginal = btnSubmit.innerHTML;
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = '<span class="btn-spinner"></span> <span>Envoi en cours...</span>';
+        if (feedback) feedback.style.display = "none";
+
+        try {
+            const reponse = await fetch("http://localhost:3000/api/messages", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    nom,
+                    email,
+                    telephone,
+                    sujet,
+                    message
+                })
+            });
+
+            const donnees = await reponse.json();
+
+            if (reponse.ok && donnees.statut === "succes") {
+                afficherFeedback(donnees.message || "Votre message a été envoyé avec succès !", "succes");
+                form.reset();
+            } else {
+                afficherFeedback(donnees.message || "Une erreur est survenue lors de l'envoi de votre message.", "erreur");
+            }
+
+        } catch (erreurReseau) {
+            console.warn("API locale non joignable :", erreurReseau);
+            afficherFeedback(
+                "Impossible de joindre le serveur API. Assurez-vous que le backend est démarré sur http://localhost:3000 (npm start).",
+                "erreur"
+            );
+        } finally {
+            btnSubmit.disabled = false;
+            btnSubmit.innerHTML = htmlOriginal;
+        }
+    });
+}
 
 document.addEventListener("DOMContentLoaded", () => {
     mettreAJourPastillePanier();
@@ -840,4 +993,5 @@ document.addEventListener("DOMContentLoaded", () => {
     initPageProduit();
     initPagePanier();
     initBasculeTheme();
+    initFormulaireContact();
 });

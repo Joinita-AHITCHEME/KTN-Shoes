@@ -8,7 +8,7 @@ const PRODUITS = [
         categorie: "homme",
         categorieLabel: "Homme",
         type: "Sneakers",
-        prix: 25000,
+        prix: 9000,
         note: 5,
         badge: "Bestseller",
         image: "images/ktn-runner1.jpg",
@@ -33,7 +33,7 @@ const PRODUITS = [
         categorie: "homme",
         categorieLabel: "Homme",
         type: "Sneakers",
-        prix: 23000,
+        prix: 8500,
         note: 5,
         badge: "Tendance",
         image: "images/ktn-classic.jpg",
@@ -58,7 +58,7 @@ const PRODUITS = [
         categorie: "femme",
         categorieLabel: "Femme",
         type: "Sandales",
-        prix: 18000,
+        prix: 6500,
         note: 4,
         badge: "",
         image: "images/ktn-sandale2.png",
@@ -83,7 +83,7 @@ const PRODUITS = [
         categorie: "femme",
         categorieLabel: "Femme",
         type: "Sneakers",
-        prix: 22000,
+        prix: 8000,
         note: 4,
         badge: "",
         image: "images/ktn-urban.jpg",
@@ -108,7 +108,7 @@ const PRODUITS = [
         categorie: "enfant",
         categorieLabel: "Enfant",
         type: "Sneakers",
-        prix: 15000,
+        prix: 5500,
         note: 4,
         badge: "Nouveau",
         image: "images/ktn-junior4.jpg",
@@ -133,7 +133,7 @@ const PRODUITS = [
         categorie: "homme",
         categorieLabel: "Homme",
         type: "Mocassins",
-        prix: 26000,
+        prix: 9500,
         note: 5,
         badge: "",
         image: "images/ktn-loafer3.jpg",
@@ -158,7 +158,7 @@ const PRODUITS = [
         categorie: "femme",
         categorieLabel: "Femme",
         type: "Talons",
-        prix: 28000,
+        prix: 10000,
         note: 5,
         badge: "Nouveau",
         image: "images/ktn-elegance1.jpg",
@@ -183,7 +183,7 @@ const PRODUITS = [
         categorie: "femme",
         categorieLabel: "Femme",
         type: "Compensés",
-        prix: 24000,
+        prix: 8500,
         note: 5,
         badge: "Nouveau",
         image: "images/ktn-comfort1.jpg",
@@ -208,7 +208,7 @@ const PRODUITS = [
         categorie: "homme",
         categorieLabel: "Homme",
         type: "Sneakers",
-        prix: 25000,
+        prix: 9000,
         note: 4,
         badge: "",
         image: "images/ktn-urban5.jpg",
@@ -233,7 +233,7 @@ const PRODUITS = [
         categorie: "femme",
         categorieLabel: "Femme",
         type: "Sandales",
-        prix: 17000,
+        prix: 6000,
         note: 4,
         badge: "",
         image: "images/ktn-summer1.jpg",
@@ -258,7 +258,7 @@ const PRODUITS = [
         categorie: "enfant",
         categorieLabel: "Enfant",
         type: "Sandales",
-        prix: 13000,
+        prix: 5000,
         note: 4,
         badge: "",
         image: "images/Kids Flex1.jpg",
@@ -283,7 +283,7 @@ const PRODUITS = [
         categorie: "enfant",
         categorieLabel: "Enfant",
         type: "Sneakers",
-        prix: 16000,
+        prix: 6000,
         note: 4,
         badge: "",
         image: "images/ktn-junior01.jpg",
@@ -304,22 +304,20 @@ const PRODUITS = [
 
 ];
 
-
-/* FONCTIONS UTILITAIRES PRODUITS */
-
-// Retourne un produit à partir de son id (id venant de l'URL = texte, d'où le Number())
 function obtenirProduitParId(id) {
     return PRODUITS.find(p => p.id === Number(id)) || null;
 }
 
-// Formate un nombre en "25 000 FCFA"
 function formaterPrix(nombre) {
     return nombre.toLocaleString("fr-FR").replace(/,/g, " ") + " FCFA";
 }
 
-// Retourne jusqu'à `limite` produits de la même catégorie, en excluant idExclu
 function produitsSimilaires(categorie, idExclu, limite = 4) {
     return PRODUITS
         .filter(p => p.categorie === categorie && p.id !== idExclu)
         .slice(0, limite);
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { PRODUITS };
 }

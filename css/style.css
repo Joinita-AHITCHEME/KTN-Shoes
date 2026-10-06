@@ -2740,6 +2740,158 @@ button {
 }
 
 
+
+/* FORMULAIRE DE CONTACT */
+.contact-col-gauche {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 28px;
+}
+
+.contact-col-droite {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form {
+    background: var(--fond-carte);
+    border: 1px solid var(--bordure);
+    border-radius: var(--rayon);
+    padding: 32px 30px;
+    box-shadow: var(--ombre-legere);
+}
+
+.contact-form-titre {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 22px;
+    color: var(--texte);
+    letter-spacing: -0.5px;
+}
+
+.contact-champ-groupe {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 18px;
+}
+
+.contact-champ-groupe label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--texte);
+}
+
+.etoile-requise {
+    color: #ef4444;
+}
+
+.contact-champs-ligne {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+@media (max-width: 600px) {
+    .contact-champs-ligne {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+.contact-champ-groupe input,
+.contact-champ-groupe select,
+.contact-champ-groupe textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--bordure);
+    border-radius: var(--rayon-petit);
+    background: var(--fond-page);
+    color: var(--texte);
+    font-family: inherit;
+    font-size: 0.92rem;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.contact-champ-groupe input:focus,
+.contact-champ-groupe select:focus,
+.contact-champ-groupe textarea:focus {
+    border-color: var(--bleu);
+    box-shadow: 0 0 0 3px rgba(var(--bleu-rgb), 0.16);
+    outline: none;
+}
+
+.contact-champ-groupe textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.contact-btn-submit {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: var(--rayon-petit);
+    background: var(--bleu);
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
+    margin-top: 6px;
+}
+
+.contact-btn-submit:hover:not(:disabled) {
+    background: var(--bleu-fonce);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(var(--bleu-rgb), 0.3);
+}
+
+.contact-btn-submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.contact-feedback {
+    padding: 12px 16px;
+    border-radius: var(--rayon-petit);
+    font-size: 0.88rem;
+    line-height: 1.4;
+    margin-bottom: 16px;
+}
+
+.contact-feedback.feedback-succes {
+    background: rgba(34, 197, 94, 0.12);
+    color: #16a34a;
+    border: 1px solid rgba(34, 197, 94, 0.28);
+}
+
+.contact-feedback.feedback-erreur {
+    background: rgba(239, 68, 68, 0.12);
+    color: #dc2626;
+    border: 1px solid rgba(239, 68, 68, 0.28);
+}
+
+.btn-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    display: inline-block;
+    animation: spinnerContact 0.8s linear infinite;
+}
+
+@keyframes spinnerContact {
+    to { transform: rotate(360deg); }
+}
+
+
 /* 12. FOOTER */
 
 .footer {
@@ -4949,4 +5101,11 @@ button:focus-visible {
     clip: rect(0, 0, 0, 0) !important;
     white-space: nowrap !important;
     border: 0 !important;
+}
+.taille-option.taille-epuisee {
+    opacity: 0.35;
+    text-decoration: line-through;
+    cursor: not-allowed;
+    border-color: var(--bordure);
+    background: transparent;
 }
