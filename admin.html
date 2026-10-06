@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KTN Shoes | Espace d'Administration & Gestion</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <script>
+        // Restauration immédiate du thème sombre si actif
+        (function() {
+            var theme = localStorage.getItem("ktn_theme");
+            if (theme === "sombre" || (!theme && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+                document.documentElement.setAttribute("data-theme", "sombre");
+            }
+        })();
+    </script>
+</head>
+<body class="admin-body">
+
+    <!-- ÉCRAN 1 : CONNEXION (Visible par défaut si non connecté) -->
+    <div id="vue-login" class="login-wrapper">
+        <div class="login-carte">
+            <div class="login-entete">
+                <a href="index.html" class="logo">KTN<span>SHOES</span></a>
+                <h2>Espace Gérant</h2>
+                <p>Connectez-vous pour piloter vos commandes, stocks et messages clients.</p>
+            </div>
+
+            <form id="form-login" class="login-form" novalidate>
+                <div class="form-groupe">
+                    <label for="login-identifiant">Identifiant ou Email</label>
+                    <input type="text" id="login-identifiant" name="identifiant" placeholder="admin ou votre email" required autocomplete="username">
+                </div>
+
+                <div class="form-groupe">
+                    <label for="login-mot-de-passe">Mot de passe</label>
+                    <input type="password" id="login-mot-de-passe" name="mot_de_passe" placeholder="Votre mot de passe" required autocomplete="current-password">
+                </div>
+
+                <div id="login-feedback" class="feedback-box feedback-erreur" style="display: none;" role="alert"></div>
+
+                <button type="submit" id="btn-login" class="bouton-login">
+                    <span class="btn-texte">Se connecter</span>
+                </button>
+            </form>
+
+            <div class="login-aide">
+                <small>💡 Identifiants par défaut du projet : <strong>admin</strong> / <strong>KtnShoes@2026!</strong></small>
+                <div class="login-retour">
+                    <a href="index.html">← Retour à la boutique publique</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ÉCRAN 2 : DASHBOARD COMPLET (Visible une fois connecté) -->
+    <div id="vue-dashboard" class="dashboard-wrapper" style="display: none;">
+        
+        <!-- BARRE DE NAVIGATION SUPÉRIEURE -->
+        <header class="admin-header">
+            <div class="admin-header-gauche">
+                <a href="admin.html" class="logo admin-logo">KTN<span>SHOES</span> <span class="badge-admin">Admin</span></a>
+            </div>
+
+            <div class="admin-header-droite">
+                <a href="index.html" target="_blank" class="admin-lien-boutique" title="Ouvrir la boutique client">
+                    <span>Voir la boutique</span> ↗
+                </a>
+                <button type="button" class="theme-toggle" aria-label="Changer de thème">☾</button>
+                <div class="admin-utilisateur">
+                    <div class="avatar-admin">S</div>
+                    <div class="admin-infos-user">
+                        <strong id="nom-admin-affiche">Silver AHITCHÉMÉ</strong>
+                        <small id="role-admin-affiche">Gérante</small>
+                    </div>
+                </div>
+                <button type="button" id="btn-deconnexion" class="btn-deconnexion" title="Se déconnecter">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    <span>Quitter</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- CORPS DU DASHBOARD : ONGLET + CONTENU -->
+        <div class="admin-conteneur">
+            
+            <!-- MENU LATÉRAL DES ONGLETS -->
+            <nav class="admin-menu-lateral">
+                <button type="button" class="nav-onglet actif" data-section="stats">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
+                    <span>Vue d'ensemble</span>
+                </button>
+
+                <button type="button" class="nav-onglet" data-section="commandes">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <span>Commandes</span>
+                    <span id="badge-nb-commandes" class="badge-bulle" style="display: none;">0</span>
+                </button>
+
+                <button type="button" class="nav-onglet" data-section="stocks">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                    <span>Stocks & Modèles</span>
+                </button>
+
+                <button type="button" class="nav-onglet" data-section="messages">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <span>Messages</span>
+                    <span id="badge-nb-messages" class="badge-bulle badge-alerte" style="display: none;">0</span>
+                </button>
+
+                <button type="button" class="nav-onglet" data-section="compte">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span>Mon Compte</span>
+                </button>
+            </nav>
+
+            <!-- ZONE CENTRALE DE CONTENU DES ONGLETS -->
+            <main class="admin-zone-principale">
+                
+                <!-- SECTION 1 : VUE D'ENSEMBLE (STATS) -->
+                <section id="section-stats" class="section-dashboard">
+                    <div class="section-entete">
+                        <h2>Tableau de Bord</h2>
+                        <p>Aperçu en temps réel de l'activité commerciale de KTN Shoes.</p>
+                    </div>
+
+                    <!-- 4 CARTES KPI -->
+                    <div class="grille-kpi">
+                        <div class="carte-kpi">
+                            <div class="kpi-icone icone-argent">💰</div>
+                            <div class="kpi-donnees">
+                                <span class="kpi-label">Chiffre d'Affaires</span>
+                                <strong id="kpi-chiffre-affaires" class="kpi-valeur">0 FCFA</strong>
+                                <small>Commandes confirmées & livrées</small>
+                            </div>
+                        </div>
+
+                        <div class="carte-kpi">
+                            <div class="kpi-icone icone-commandes">📦</div>
+                            <div class="kpi-donnees">
+                                <span class="kpi-label">Commandes Totales</span>
+                                <strong id="kpi-total-commandes" class="kpi-valeur">0</strong>
+                                <small id="kpi-commandes-en-attente">0 en attente</small>
+                            </div>
+                        </div>
+
+                        <div class="carte-kpi">
+                            <div class="kpi-icone icone-stocks">👟</div>
+                            <div class="kpi-donnees">
+                                <span class="kpi-label">Stocks en Magasin</span>
+                                <strong id="kpi-total-stock" class="kpi-valeur">0 paires</strong>
+                                <small id="kpi-alertes-stock">0 alerte de stock bas</small>
+                            </div>
+                        </div>
+
+                        <div class="carte-kpi">
+                            <div class="kpi-icone icone-messages">📬</div>
+                            <div class="kpi-donnees">
+                                <span class="kpi-label">Messages Reçus</span>
+                                <strong id="kpi-total-messages" class="kpi-valeur">0</strong>
+                                <small id="kpi-messages-non-lus">0 non lus</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DERNIÈRES COMMANDES -->
+                    <div class="carte-contenu">
+                        <div class="carte-contenu-entete">
+                            <h3>Dernières commandes enregistrées</h3>
+                            <button type="button" class="btn-lien-onglet" data-aller-a="commandes">Voir toutes les commandes →</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table-admin">
+                                <thead>
+                                    <tr>
+                                        <th>Réf.</th>
+                                        <th>Client</th>
+                                        <th>Date</th>
+                                        <th>Total</th>
+                                        <th>Statut</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-dernieres-commandes">
+                                    <tr><td colspan="6" class="cellule-vide">Chargement des données...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 2 : COMMANDES -->
+                <section id="section-commandes" class="section-dashboard" style="display: none;">
+                    <div class="section-entete avec-actions">
+                        <div>
+                            <h2>Gestion des Commandes</h2>
+                            <p>Consultez, validez et mettez à jour l'état de chaque commande client.</p>
+                        </div>
+                        <button type="button" id="btn-rafraichir-commandes" class="btn-secondaire">
+                            ↻ Actualiser
+                        </button>
+                    </div>
+
+                    <!-- BARRE DE FILTRES COMMANDES -->
+                    <div class="barre-filtres-statut">
+                        <button type="button" class="filtre-btn actif" data-statut="">Toutes</button>
+                        <button type="button" class="filtre-btn" data-statut="en_attente">⏳ En attente</button>
+                        <button type="button" class="filtre-btn" data-statut="confirmee">✓ Confirmées</button>
+                        <button type="button" class="filtre-btn" data-statut="en_livraison">🚚 En livraison</button>
+                        <button type="button" class="filtre-btn" data-statut="livree">★ Livrées</button>
+                        <button type="button" class="filtre-btn" data-statut="annulee">✕ Annulées</button>
+                    </div>
+
+                    <div class="carte-contenu">
+                        <div class="table-responsive">
+                            <table class="table-admin">
+                                <thead>
+                                    <tr>
+                                        <th>Référence</th>
+                                        <th>Client</th>
+                                        <th>Téléphone & Ville</th>
+                                        <th>Date</th>
+                                        <th>Articles</th>
+                                        <th>Total</th>
+                                        <th>Statut</th>
+                                        <th>Détail</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-toutes-commandes">
+                                    <tr><td colspan="8" class="cellule-vide">Chargement des commandes...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 3 : STOCKS & MODÈLES -->
+                <section id="section-stocks" class="section-dashboard" style="display: none;">
+                    <div class="section-entete">
+                        <h2>Inventaire des Stocks & Modèles</h2>
+                        <p>Ajustez les quantités disponibles par pointure en direct pour vos 12 références.</p>
+                    </div>
+
+                    <div class="grille-produits-stocks" id="grille-stocks-produits">
+                        <!-- Généré dynamiquement en JS -->
+                    </div>
+                </section>
+
+                <!-- SECTION 4 : MESSAGES CLIENTS -->
+                <section id="section-messages" class="section-dashboard" style="display: none;">
+                    <div class="section-entete avec-actions">
+                        <div>
+                            <h2>Messages du Formulaire de Contact</h2>
+                            <p>Demandes d'informations, requêtes de pointure et suivis de vos clients.</p>
+                        </div>
+                        <div class="barre-filtres-statut">
+                            <button type="button" class="filtre-msg-btn actif" data-lu="">Tous</button>
+                            <button type="button" class="filtre-msg-btn" data-lu="0">Non lus uniquement</button>
+                            <button type="button" class="filtre-msg-btn" data-lu="1">Lus</button>
+                        </div>
+                    </div>
+
+                    <div class="carte-contenu">
+                        <div class="table-responsive">
+                            <table class="table-admin">
+                                <thead>
+                                    <tr>
+                                        <th>Expéditeur</th>
+                                        <th>Contact</th>
+                                        <th>Sujet</th>
+                                        <th>Date</th>
+                                        <th>État</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody-messages">
+                                    <tr><td colspan="6" class="cellule-vide">Chargement des messages...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 5 : MON COMPTE -->
+                <section id="section-compte" class="section-dashboard" style="display: none;">
+                    <div class="section-entete">
+                        <h2>Sécurité & Paramètres Administrateur</h2>
+                        <p>Gérez vos identifiants d'accès et modifiez votre mot de passe.</p>
+                    </div>
+
+                    <div class="carte-contenu carte-form-compte">
+                        <h3>Modifier le mot de passe</h3>
+                        <form id="form-changer-mdp" class="login-form">
+                            <div class="form-groupe">
+                                <label for="ancien-mdp">Mot de passe actuel</label>
+                                <input type="password" id="ancien-mdp" required autocomplete="current-password">
+                            </div>
+
+                            <div class="form-groupe">
+                                <label for="nouveau-mdp">Nouveau mot de passe (min. 8 caractères)</label>
+                                <input type="password" id="nouveau-mdp" minlength="8" required autocomplete="new-password">
+                            </div>
+
+                            <div class="form-groupe">
+                                <label for="confirmer-mdp">Confirmer le nouveau mot de passe</label>
+                                <input type="password" id="confirmer-mdp" minlength="8" required autocomplete="new-password">
+                            </div>
+
+                            <div id="mdp-feedback" class="feedback-box" style="display: none;" role="alert"></div>
+
+                            <button type="submit" id="btn-changer-mdp" class="bouton-login">
+                                Valider le nouveau mot de passe
+                            </button>
+                        </form>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- MODALE 1 : DÉTAIL COMMANDE -->
+    <div id="modale-commande" class="modale-flottante" style="display: none;" role="dialog" aria-modal="true">
+        <div class="modale-arriere-plan"></div>
+        <div class="modale-boite">
+            <div class="modale-tete">
+                <h3 id="modale-cmd-ref">Détail de la commande</h3>
+                <button type="button" class="modale-fermer" aria-label="Fermer la modale">✕</button>
+            </div>
+            <div class="modale-corps" id="modale-cmd-corps">
+                <!-- Rempli en JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALE 2 : LECTURE MESSAGE -->
+    <div id="modale-message" class="modale-flottante" style="display: none;" role="dialog" aria-modal="true">
+        <div class="modale-arriere-plan"></div>
+        <div class="modale-boite">
+            <div class="modale-tete">
+                <h3 id="modale-msg-sujet">Message</h3>
+                <button type="button" class="modale-fermer" aria-label="Fermer la modale">✕</button>
+            </div>
+            <div class="modale-corps" id="modale-msg-corps">
+                <!-- Rempli en JS -->
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>
