@@ -1,0 +1,10 @@
+﻿{
+  "name": "ktn-shoes",
+  "version": "1.0.0",
+  "private": true,
+  "description": "KTN Shoes - Boutique E-commerce Full-Stack",
+  "scripts": {
+    "start": "npm start --prefix backend",
+    "setup": "npm run setup --prefix backend"
+  }
+}

@@ -3,7 +3,9 @@
 // Gestion sécurisée via Token JWT, API REST & DOM dynamique
 // ======================================================
 
-const API_BASE = 'http://localhost:3000/api';
+const API_BASE = (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
+    ? 'http://localhost:3000/api'
+    : 'https://ktn-shoes-backend.onrender.com/api';
 const CLE_TOKEN = 'ktn_admin_token';
 const CLE_USER = 'ktn_admin_user';
 
@@ -134,7 +136,7 @@ function initFormulaireConnexion() {
             }
         } catch (err) {
             console.error('Erreur login :', err);
-            afficherFeedback(feedback, 'Impossible de joindre le serveur. Assurez-vous que le backend est démarré sur http://localhost:3000.', 'erreur');
+            afficherFeedback(feedback, 'Impossible de joindre le serveur API. Veuillez vérifier votre connexion ou vous assurer que le backend est accessible.', 'erreur');
         } finally {
             btn.disabled = false;
             btn.innerHTML = texteOriginal;

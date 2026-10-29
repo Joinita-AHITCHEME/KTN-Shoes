@@ -1,5 +1,8 @@
 /* SCRIPT PRINCIPAL — KTN SHOES */
 
+const API_BASE = (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"))
+    ? "http://localhost:3000/api"
+    : "https://ktn-shoes-backend.onrender.com/api";
 const CLE_PANIER = "ktn_panier";
 const CLE_FAVORIS = "ktn_favoris";
 const CLE_THEME = "ktn_theme";
@@ -423,7 +426,7 @@ function initPageProduit() {
             });
         });
 
-        fetch(`http://localhost:3000/api/produits/${id}`)
+        fetch(`${API_BASE}/produits/${id}`)
             .then(r => r.ok ? r.json() : null)
             .then(data => {
                 if (data && data.donnees && Array.isArray(data.donnees.stocks)) {
@@ -697,7 +700,7 @@ function afficherModaleConfirmation(panier) {
         };
 
         try {
-            const reponse = await fetch("http://localhost:3000/api/commandes", {
+            const reponse = await fetch(`${API_BASE}/commandes`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
@@ -948,7 +951,7 @@ function initFormulaireContact() {
         if (feedback) feedback.style.display = "none";
 
         try {
-            const reponse = await fetch("http://localhost:3000/api/messages", {
+            const reponse = await fetch(`${API_BASE}/messages`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -972,9 +975,9 @@ function initFormulaireContact() {
             }
 
         } catch (erreurReseau) {
-            console.warn("API locale non joignable :", erreurReseau);
+            console.warn("Serveur API non joignable :", erreurReseau);
             afficherFeedback(
-                "Impossible de joindre le serveur API. Assurez-vous que le backend est démarré sur http://localhost:3000 (npm start).",
+                "Impossible de joindre le serveur API. Veuillez vérifier votre connexion ou nous contacter directement via WhatsApp.",
                 "erreur"
             );
         } finally {
